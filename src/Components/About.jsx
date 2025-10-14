@@ -38,14 +38,14 @@ const About = () => {
               About DiceMed
             </h2>
             <hr className="w-72 border-blue-600 mb-6 mx-auto md:mx-0" />
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+            <p className="text-lg text-gray-700 mb-6 text-justify leading-relaxed">
               DiceMed is at the forefront of AI-driven healthcare
               transformation. We specialize in advanced medical imaging
               solutions that empower healthcare professionals with actionable
               insights. Our cutting-edge technology supports multi-disease
               analysis, bridging the gap between diagnosis and patient care.
             </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-gray-700 text-justify leading-relaxed">
               With DiceMed, our flagship product, we focus on tackling complex
               medical cases through AI-enhanced imaging and reporting. Our
               mission is to assist doctors in delivering accurate, timely, and

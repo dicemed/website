@@ -41,9 +41,11 @@ const PrescriptionGenerator = () => {
     doctorDesignation: "",
   });
 
+  const [errors, setErrors] = useState({});
   const [showPreview, setShowPreview] = useState(false);
   const printRef = useRef();
 
+  // ----- Options -----
   const scanTypeOptions = [
     "3D",
     "Quadrant",
@@ -73,21 +75,29 @@ const PrescriptionGenerator = () => {
     "PNS",
   ];
 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => {
+      const copy = { ...prev };
+      delete copy[name];
+      return copy;
+    });
   };
 
   const handleCheckboxChange = (category, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [category]: prev[category].includes(value)
+    setFormData((prev) => {
+      const updated = prev[category].includes(value)
         ? prev[category].filter((item) => item !== value)
-        : [...prev[category], value],
-    }));
+        : [...prev[category], value];
+      return { ...prev, [category]: updated };
+    });
+    setErrors((prev) => {
+      const copy = { ...prev };
+      delete copy[category];
+      return copy;
+    });
   };
 
   const handleImageUpload = (e, imageType) => {
@@ -95,10 +105,7 @@ const PrescriptionGenerator = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        setFormData((prev) => ({
-          ...prev,
-          [imageType]: event.target.result,
-        }));
+        setFormData((prev) => ({ ...prev, [imageType]: event.target.result }));
       };
       reader.readAsDataURL(file);
     }
@@ -108,6 +115,64 @@ const PrescriptionGenerator = () => {
     window.print();
   };
 
+  // Validation 
+  const validate = () => {
+    const err = {};
+
+    // required text/number fields
+    const required = [
+      "patientName",
+      "referringDoctor",
+      "address",
+      "age",
+      "gender",
+      "mobile",
+      "email",
+      "toothArea",
+      "regionOfInterest",
+      "specialRemarks",
+      "doctorName",
+      "doctorDesignation",
+    ];
+    required.forEach((f) => {
+      if (!String(formData[f] || "").trim()) err[f] = "Required";
+    });
+
+    // basic formats
+    if (formData.age && (+formData.age <= 0 || +formData.age > 120)) {
+      err.age = "Enter a valid age (1–120)";
+    }
+    if (
+      formData.email &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(formData.email).trim())
+    ) {
+      err.email = "Enter a valid email";
+    }
+    if (
+      formData.mobile &&
+      !/^[0-9+\-\s]{7,15}$/.test(String(formData.mobile).trim())
+    ) {
+      err.mobile = "Enter a valid phone number";
+    }
+
+    // groups: require at least one
+    if (!formData.scanType.length) err.scanType = "Select at least one";
+    if (!formData.medicalHistory.length) err.medicalHistory = "Select at least one";
+    if (!formData.twoDOptions.length) err.twoDOptions = "Select at least one";
+
+    setErrors(err);
+    return Object.keys(err).length === 0;
+  };
+
+  // Small error component 
+  const Error = ({ name }) =>
+    errors[name] ? (
+      <p className="text-red-600 text-xs mt-1" data-field={name}>
+        {errors[name]}
+      </p>
+    ) : null;
+
+  // Preview (Print) 
   const PreviewComponent = () => (
     <div
       className="bg-white p-8 shadow-lg rounded-lg max-w-4xl mx-auto"
@@ -124,7 +189,7 @@ const PrescriptionGenerator = () => {
           </div>
           <div className="text-right text-sm text-gray-600">
             <p>https://dicemed.in/</p>
-            {/* <p>Ambala City, Haryana - 134003</p>
+             {/* <p>Ambala City, Haryana - 134003</p>
             <p>Contact No.: 0171-2550100, 7082-3030-31</p> */}
           </div>
         </div>
@@ -134,48 +199,34 @@ const PrescriptionGenerator = () => {
       <div className="grid grid-cols-2 gap-6 mb-6">
         <div className="space-y-4">
           <div>
-            <span className="font-semibold text-gray-700">
-              Patient's Name:{" "}
-            </span>
-            <span className="text-gray-600">
-              {formData.patientName || "_________________"}
-            </span>
+            <span className="font-semibold text-gray-700">Patient's Name: </span>
+            <span className="text-gray-600">{formData.patientName}</span>
           </div>
           <div>
-            <span className="font-semibold text-gray-700">
-              Referring Doctor:{" "}
-            </span>
-            <span className="text-gray-600">
-              {formData.referringDoctor || "_________________"}
-            </span>
+            <span className="font-semibold text-gray-700">Referring Doctor: </span>
+            <span className="text-gray-600">{formData.referringDoctor}</span>
           </div>
           <div>
             <span className="font-semibold text-gray-700">Address: </span>
-            <span className="text-gray-600">
-              {formData.address || "_________________"}
-            </span>
+            <span className="text-gray-600">{formData.address}</span>
           </div>
         </div>
         <div className="space-y-4">
           <div>
             <span className="font-semibold text-gray-700">Age: </span>
-            <span className="text-gray-600">{formData.age || "____"}</span>
+            <span className="text-gray-600">{formData.age}</span>
           </div>
           <div>
             <span className="font-semibold text-gray-700">Gender: </span>
-            <span className="text-gray-600">{formData.gender || "____"}</span>
+            <span className="text-gray-600">{formData.gender}</span>
           </div>
           <div>
             <span className="font-semibold text-gray-700">Mobile: </span>
-            <span className="text-gray-600">
-              {formData.mobile || "_________________"}
-            </span>
+            <span className="text-gray-600">{formData.mobile}</span>
           </div>
           <div>
             <span className="font-semibold text-gray-700">E-mail: </span>
-            <span className="text-gray-600">
-              {formData.email || "_________________"}
-            </span>
+            <span className="text-gray-600">{formData.email}</span>
           </div>
         </div>
       </div>
@@ -187,14 +238,12 @@ const PrescriptionGenerator = () => {
             Please kindly mention the tooth/area of interest & purpose of scan
           </h3>
           <div className="border border-gray-300 p-3 min-h-16 bg-gray-50 rounded">
-            {formData.toothArea || "CBCT"}
+            {formData.toothArea}
           </div>
         </div>
 
         <div className="mb-4">
-          <h3 className="font-semibold text-gray-700 mb-2">
-            REGION OF INTEREST
-          </h3>
+          <h3 className="font-semibold text-gray-700 mb-2">REGION OF INTEREST</h3>
           <div className="border border-gray-300 p-3 min-h-16 bg-gray-50 rounded">
             {formData.regionOfInterest}
           </div>
@@ -294,6 +343,43 @@ const PrescriptionGenerator = () => {
     </div>
   );
 
+  // Preview page
+  if (showPreview) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-6xl mx-auto p-4">
+          <div className="flex justify-between items-center mb-4">
+            <button
+              onClick={() => setShowPreview(false)}
+              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+            >
+              ← Back to Form
+            </button>
+            <button
+              onClick={handleDownloadPDF}
+              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex items-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Download PDF
+            </button>
+          </div>
+          <PreviewComponent />
+        </div>
+
+        {/* Print-only mirror */}
+        <div className="hidden print:block">
+          <PreviewComponent />
+        </div>
+      </div>
+    );
+  }
+
+  //  Form page 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) setShowPreview(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
@@ -303,7 +389,11 @@ const PrescriptionGenerator = () => {
 
         <div className="flex gap-8">
           {/* Form Section */}
-          <div className="flex-1 bg-white rounded-lg shadow-lg p-6">
+          <form
+            className="flex-1 bg-white rounded-lg shadow-lg p-6"
+            onSubmit={handleSubmit}
+            noValidate
+          >
             <h2 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
               <FileText className="w-5 h-5" />
               Patient Information
@@ -322,9 +412,11 @@ const PrescriptionGenerator = () => {
                     name="patientName"
                     value={formData.patientName}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter patient name"
                   />
+                  <Error name="patientName" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -335,9 +427,11 @@ const PrescriptionGenerator = () => {
                     name="referringDoctor"
                     value={formData.referringDoctor}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter doctor name"
                   />
+                  <Error name="referringDoctor" />
                 </div>
               </div>
 
@@ -350,9 +444,11 @@ const PrescriptionGenerator = () => {
                   value={formData.address}
                   onChange={handleInputChange}
                   rows={3}
+                  required
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter patient address"
                 />
+                <Error name="address" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -366,9 +462,13 @@ const PrescriptionGenerator = () => {
                     name="age"
                     value={formData.age}
                     onChange={handleInputChange}
+                    required
+                    min="1"
+                    max="120"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Age"
                   />
+                  <Error name="age" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -379,6 +479,7 @@ const PrescriptionGenerator = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select Gender</option>
@@ -386,6 +487,7 @@ const PrescriptionGenerator = () => {
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                   </select>
+                  <Error name="gender" />
                 </div>
               </div>
 
@@ -400,9 +502,11 @@ const PrescriptionGenerator = () => {
                     name="mobile"
                     value={formData.mobile}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Mobile number"
                   />
+                  <Error name="mobile" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -414,26 +518,29 @@ const PrescriptionGenerator = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Email address"
                   />
+                  <Error name="email" />
                 </div>
               </div>
 
               {/* Clinical Information */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Please kindly mention the tooth/area of interest & purpose of
-                  scan
+                  Please kindly mention the tooth/area of interest & purpose of scan
                 </label>
                 <textarea
                   name="toothArea"
                   value={formData.toothArea}
                   onChange={handleInputChange}
                   rows={3}
+                  required
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="CBCT"
                 />
+                <Error name="toothArea" />
               </div>
 
               <div>
@@ -445,15 +552,17 @@ const PrescriptionGenerator = () => {
                   value={formData.regionOfInterest}
                   onChange={handleInputChange}
                   rows={3}
+                  required
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Specify region of interest"
                 />
+                <Error name="regionOfInterest" />
               </div>
 
               {/* Scan Type */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Scan Type
+                  Scan Type <span className="text-red-600">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {scanTypeOptions.map((option) => (
@@ -461,21 +570,20 @@ const PrescriptionGenerator = () => {
                       <input
                         type="checkbox"
                         checked={formData.scanType.includes(option)}
-                        onChange={() =>
-                          handleCheckboxChange("scanType", option)
-                        }
+                        onChange={() => handleCheckboxChange("scanType", option)}
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
                       <span className="text-sm text-gray-700">{option}</span>
                     </label>
                   ))}
                 </div>
+                <Error name="scanType" />
               </div>
 
               {/* Medical History */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Medical History
+                  Medical History <span className="text-red-600">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {medicalHistoryOptions.map((option) => (
@@ -492,12 +600,13 @@ const PrescriptionGenerator = () => {
                     </label>
                   ))}
                 </div>
+                <Error name="medicalHistory" />
               </div>
 
               {/* 2D Options */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  2D
+                  2D <span className="text-red-600">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {twoDOptions.map((option) => (
@@ -505,15 +614,14 @@ const PrescriptionGenerator = () => {
                       <input
                         type="checkbox"
                         checked={formData.twoDOptions.includes(option)}
-                        onChange={() =>
-                          handleCheckboxChange("twoDOptions", option)
-                        }
+                        onChange={() => handleCheckboxChange("twoDOptions", option)}
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
                       <span className="text-sm text-gray-700">{option}</span>
                     </label>
                   ))}
                 </div>
+                <Error name="twoDOptions" />
               </div>
 
               {/* Special Remarks */}
@@ -526,12 +634,14 @@ const PrescriptionGenerator = () => {
                   value={formData.specialRemarks}
                   onChange={handleInputChange}
                   rows={4}
+                  required
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Any special remarks or instructions"
                 />
+                <Error name="specialRemarks" />
               </div>
 
-              {/* Doctor Signature Section */}
+              {/* Doctor Info & Uploads */}
               <div className="border-t pt-6">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">
                   Doctor's Information
@@ -546,9 +656,11 @@ const PrescriptionGenerator = () => {
                       name="doctorName"
                       value={formData.doctorName}
                       onChange={handleInputChange}
+                      required
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       placeholder="Enter doctor's name"
                     />
+                    <Error name="doctorName" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -559,15 +671,17 @@ const PrescriptionGenerator = () => {
                       name="doctorDesignation"
                       value={formData.doctorDesignation}
                       onChange={handleInputChange}
+                      required
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       placeholder="Enter designation"
                     />
+                    <Error name="doctorDesignation" />
                   </div>
 
-                  {/* Signature Upload */}
+                  {/* Signature Upload (optional) */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Doctor's Signature
+                      Doctor's Signature (optional)
                     </label>
                     <div className="flex items-center gap-4">
                       <input
@@ -604,18 +718,16 @@ const PrescriptionGenerator = () => {
                     )}
                   </div>
 
-                  {/* Seal Upload */}
+                  {/* Seal Upload (optional) */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Doctor's Seal
+                      Doctor's Seal (optional)
                     </label>
                     <div className="flex items-center gap-4">
                       <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) =>
-                          handleImageUpload(e, "doctorSealImage")
-                        }
+                        onChange={(e) => handleImageUpload(e, "doctorSealImage")}
                         className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                       />
                       {formData.doctorSealImage && (
@@ -650,33 +762,19 @@ const PrescriptionGenerator = () => {
             {/* Action Buttons */}
             <div className="flex gap-4 mt-8">
               <button
-                onClick={() => setShowPreview(!showPreview)}
+                type="submit"
                 className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 <Eye className="w-4 h-4" />
-                {showPreview ? "Hide Preview" : "Show Preview"}
+                Preview
               </button>
-              <button
-                onClick={handleDownloadPDF}
-                className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-              >
-                <Download className="w-4 h-4" />
-                Download PDF
-              </button>
+              
             </div>
-          </div>
+          </form>
         </div>
       </div>
-      {/* Preview Section */}
-      {showPreview && (
-        <div className="flex-1">
-          <h2 className="pt-4 text-xl text-center font-semibold text-gray-800 mb-4">
-            Preview
-          </h2>
-          <PreviewComponent />
-        </div>
-      )}
-      {/* Hidden print version */}
+
+      {/* Hidden print version for direct print */}
       <div className="hidden print:block">
         <PreviewComponent />
       </div>

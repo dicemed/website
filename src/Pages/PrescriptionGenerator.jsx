@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { Plus, Trash2, Download, Eye, Upload } from "lucide-react";
 
 const PrescriptionGenerator = () => {
@@ -31,6 +31,7 @@ const PrescriptionGenerator = () => {
     doctorDesignation: "",
   });
 
+  const [errors, setErrors] = useState({});
   const [showPreview, setShowPreview] = useState(false);
   const signatureRef = useRef();
   const sealRef = useRef();
@@ -62,12 +63,23 @@ const PrescriptionGenerator = () => {
     } else {
       setFormData((prev) => ({ ...prev, [field]: value }));
     }
+    // clear a field's error when user changes it
+    setErrors((prev) => {
+      const copy = { ...prev };
+      delete copy[field];
+      return copy;
+    });
   };
 
   const handleMedicineChange = (index, field, value) => {
     const updatedMedicines = [...formData.medicines];
     updatedMedicines[index][field] = value;
     setFormData((prev) => ({ ...prev, medicines: updatedMedicines }));
+    setErrors((prev) => {
+      const copy = { ...prev };
+      delete copy[`medicines.${index}.${field}`];
+      return copy;
+    });
   };
 
   const addMedicine = () => {
@@ -110,6 +122,86 @@ const PrescriptionGenerator = () => {
     window.print();
   };
 
+  //  Validation 
+  const validate = () => {
+    const err = {};
+
+    // Required flat fields
+    const requiredFields = [
+      "patientName",
+      "referringDoctor",
+      "age",
+      "mobile",
+      "email",
+      "chiefComplaints",
+      "clinicalFindings",
+      "professionalDiagnosis",
+      "doctorName",
+      "doctorDesignation",
+    ];
+    requiredFields.forEach((f) => {
+      if (!String(formData[f] || "").trim()) err[f] = "Required";
+    });
+
+    // Basic format checks (lightweight)
+    if (formData.age && (+formData.age <= 0 || +formData.age > 120))
+      err.age = "Enter a valid age";
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      err.email = "Enter a valid email";
+    if (formData.mobile && !/^[0-9+\-\s]{7,15}$/.test(formData.mobile))
+      err.mobile = "Enter a valid phone number";
+
+    // Vitals required
+    ["bp", "spo2", "pulse", "height", "weight"].forEach((k) => {
+      if (!String(formData.vitals[k] || "").trim())
+        err[`vitals.${k}`] = "Required";
+    });
+
+    // Each medicine must be complete
+    formData.medicines.forEach((m, i) => {
+      ["name", "dosage", "frequency", "timing"].forEach((k) => {
+        if (!String(m[k] || "").trim())
+          err[`medicines.${i}.${k}`] = "Required";
+      });
+    });
+
+    setErrors(err);
+    return Object.keys(err).length === 0;
+  };
+
+  // Scroll to first error field helper (optional nicety)
+  const scrollToFirstError = () => {
+    const keys = Object.keys(errors);
+    if (!keys.length) return;
+    const attr = keys[0];
+    const el =
+      document.querySelector(`[data-field="${attr}"]`) ||
+      document.querySelector(`[name="${attr}"]`);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  // Submit handler: show preview only if valid
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const ok = validate();
+    if (ok) {
+      setShowPreview(true);
+    } else {
+      // allow the DOM to render error labels then scroll
+      setTimeout(scrollToFirstError, 0);
+    }
+  };
+
+  //  Medicine Suggestion Dropdown (visible) 
+  const [openIndex, setOpenIndex] = useState(null);
+  const [query, setQuery] = useState("");
+
+  const filteredMeds = useMemo(() => {
+    const q = query.toLowerCase().trim();
+    if (!q) return predefinedMedicines;
+    return predefinedMedicines.filter((m) => m.toLowerCase().includes(q));
+  }, [query], [predefinedMedicines]);
+
   const PrescriptionPreview = () => (
     <div className="bg-white p-8 max-w-4xl mx-auto" id="prescription-preview">
       {/* Header */}
@@ -123,7 +215,6 @@ const PrescriptionGenerator = () => {
           </div>
           <div className="text-right text-sm">
             <p>https://dicemed.in/</p>
-
             <p className="mt-2 font-semibold">Date: {getCurrentDate()}</p>
           </div>
         </div>
@@ -310,10 +401,22 @@ const PrescriptionGenerator = () => {
     );
   }
 
+  // Helper to render field errors 
+  const Error = ({ name }) =>
+    errors[name] ? (
+      <p className="text-red-600 text-xs mt-1" data-field={name}>
+        {errors[name]}
+      </p>
+    ) : null;
+
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="container mx-auto max-w-6xl">
-        <div className="bg-white rounded-lg shadow-lg p-6">
+        <form
+          className="bg-white rounded-lg shadow-lg p-6"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">
             Prescription Generator
           </h1>
@@ -324,62 +427,114 @@ const PrescriptionGenerator = () => {
               Patient Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <input
-                type="text"
-                placeholder="Patient's Name"
-                value={formData.patientName}
-                onChange={(e) =>
-                  handleInputChange("patientName", e.target.value)
-                }
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <input
-                type="text"
-                placeholder="Referring Doctor"
-                value={formData.referringDoctor}
-                onChange={(e) =>
-                  handleInputChange("referringDoctor", e.target.value)
-                }
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <input
-                type="text"
-                placeholder="Address"
-                value={formData.address}
-                onChange={(e) => handleInputChange("address", e.target.value)}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <input
-                type="number"
-                placeholder="Age"
-                value={formData.age}
-                onChange={(e) => handleInputChange("age", e.target.value)}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <select
-                value={formData.gender}
-                onChange={(e) => handleInputChange("gender", e.target.value)}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-              <input
-                type="tel"
-                placeholder="Mobile"
-                value={formData.mobile}
-                onChange={(e) => handleInputChange("mobile", e.target.value)}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <input
-                type="email"
-                placeholder="E-mail"
-                value={formData.email}
-                onChange={(e) => handleInputChange("email", e.target.value)}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 md:col-span-2 lg:col-span-1"
-              />
+              <div>
+                <input
+                  name="patientName"
+                  data-field="patientName"
+                  type="text"
+                  placeholder="Patient's Name"
+                  value={formData.patientName}
+                  onChange={(e) =>
+                    handleInputChange("patientName", e.target.value)
+                  }
+                  required
+                  className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+                <Error name="patientName" />
+              </div>
+
+              <div>
+                <input
+                  name="referringDoctor"
+                  data-field="referringDoctor"
+                  type="text"
+                  placeholder="Referring Doctor"
+                  value={formData.referringDoctor}
+                  onChange={(e) =>
+                    handleInputChange("referringDoctor", e.target.value)
+                  }
+                  required
+                  className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+                <Error name="referringDoctor" />
+              </div>
+
+              <div>
+                <input
+                  name="address"
+                  data-field="address"
+                  type="text"
+                  placeholder="Address"
+                  value={formData.address}
+                  onChange={(e) => handleInputChange("address", e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+                <Error name="address" />
+              </div>
+
+              <div>
+                <input
+                  name="age"
+                  data-field="age"
+                  type="number"
+                  placeholder="Age"
+                  value={formData.age}
+                  onChange={(e) => handleInputChange("age", e.target.value)}
+                  required
+                  min="1"
+                  max="120"
+                  className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+                <Error name="age" />
+              </div>
+
+              <div>
+                <select
+                  name="gender"
+                  data-field="gender"
+                  value={formData.gender}
+                  onChange={(e) => handleInputChange("gender", e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                >
+                  <option value="" disabled>
+                    Select Gender
+                  </option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <Error name="gender" />
+              </div>
+
+              <div>
+                <input
+                  name="mobile"
+                  data-field="mobile"
+                  type="tel"
+                  placeholder="Mobile"
+                  value={formData.mobile}
+                  onChange={(e) => handleInputChange("mobile", e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+                <Error name="mobile" />
+              </div>
+
+              <div className="md:col-span-2 lg:col-span-1">
+                <input
+                  name="email"
+                  data-field="email"
+                  type="email"
+                  placeholder="E-mail"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange("email", e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+                <Error name="email" />
+              </div>
             </div>
           </div>
 
@@ -392,13 +547,17 @@ const PrescriptionGenerator = () => {
                   Chief Complaints
                 </label>
                 <textarea
+                  name="chiefComplaints"
+                  data-field="chiefComplaints"
                   value={formData.chiefComplaints}
                   onChange={(e) =>
                     handleInputChange("chiefComplaints", e.target.value)
                   }
+                  required
                   className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter chief complaints..."
                 />
+                <Error name="chiefComplaints" />
               </div>
 
               <div>
@@ -406,123 +565,55 @@ const PrescriptionGenerator = () => {
                   Vitals
                 </label>
                 <div className="grid grid-cols-2 gap-2">
-                  <input
-                    type="text"
-                    placeholder="BP"
-                    value={formData.vitals.bp}
-                    onChange={(e) =>
-                      handleInputChange("vitals.bp", e.target.value)
-                    }
-                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="text"
-                    placeholder="SpO2"
-                    value={formData.vitals.spo2}
-                    onChange={(e) =>
-                      handleInputChange("vitals.spo2", e.target.value)
-                    }
-                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Pulse"
-                    value={formData.vitals.pulse}
-                    onChange={(e) =>
-                      handleInputChange("vitals.pulse", e.target.value)
-                    }
-                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Height"
-                    value={formData.vitals.height}
-                    onChange={(e) =>
-                      handleInputChange("vitals.height", e.target.value)
-                    }
-                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Weight"
-                    value={formData.vitals.weight}
-                    onChange={(e) =>
-                      handleInputChange("vitals.weight", e.target.value)
-                    }
-                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 col-span-2"
-                  />
+                  {[
+                    { key: "bp", label: "BP" },
+                    { key: "spo2", label: "SpO2" },
+                    { key: "pulse", label: "Pulse" },
+                    { key: "height", label: "Height" },
+                    { key: "weight", label: "Weight", colSpan: "col-span-2" },
+                  ].map(({ key, label, colSpan }) => (
+                    <div key={key} className={colSpan || ""}>
+                      <input
+                        name={`vitals.${key}`}
+                        data-field={`vitals.${key}`}
+                        type="text"
+                        placeholder={label}
+                        value={formData.vitals[key]}
+                        onChange={(e) =>
+                          handleInputChange(`vitals.${key}`, e.target.value)
+                        }
+                        required
+                        className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                      />
+                      <Error name={`vitals.${key}`} />
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Clinical Findings
-                </label>
-                <textarea
-                  value={formData.clinicalFindings}
-                  onChange={(e) =>
-                    handleInputChange("clinicalFindings", e.target.value)
-                  }
-                  className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter clinical findings..."
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Medical History
-                </label>
-                <textarea
-                  value={formData.medicalHistory}
-                  onChange={(e) =>
-                    handleInputChange("medicalHistory", e.target.value)
-                  }
-                  className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter medical history..."
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Professional Diagnosis
-                </label>
-                <textarea
-                  value={formData.professionalDiagnosis}
-                  onChange={(e) =>
-                    handleInputChange("professionalDiagnosis", e.target.value)
-                  }
-                  className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter professional diagnosis..."
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Investigations Advised
-                </label>
-                <textarea
-                  value={formData.investigationsAdvised}
-                  onChange={(e) =>
-                    handleInputChange("investigationsAdvised", e.target.value)
-                  }
-                  className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter investigations advised..."
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Special Remarks
-                </label>
-                <textarea
-                  value={formData.specialRemarks}
-                  onChange={(e) =>
-                    handleInputChange("specialRemarks", e.target.value)
-                  }
-                  className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter special remarks..."
-                />
-              </div>
+              {[
+                { key: "clinicalFindings", label: "Clinical Findings" },
+                { key: "medicalHistory", label: "Medical History" },
+                { key: "professionalDiagnosis", label: "Professional Diagnosis" },
+                { key: "investigationsAdvised", label: "Investigations Advised" },
+                { key: "specialRemarks", label: "Special Remarks" },
+              ].map(({ key, label }) => (
+                <div key={key}>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {label}
+                  </label>
+                  <textarea
+                    name={key}
+                    data-field={key}
+                    value={formData[key]}
+                    onChange={(e) => handleInputChange(key, e.target.value)}
+                    required
+                    className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={`Enter ${label.toLowerCase()}...`}
+                  />
+                  <Error name={key} />
+                </div>
+              ))}
             </div>
 
             {/* Right Section */}
@@ -532,13 +623,17 @@ const PrescriptionGenerator = () => {
                   Final Diagnosis
                 </label>
                 <textarea
+                  name="finalDiagnosis"
+                  data-field="finalDiagnosis"
                   value={formData.finalDiagnosis}
                   onChange={(e) =>
                     handleInputChange("finalDiagnosis", e.target.value)
                   }
+                  required
                   className="w-full border border-gray-300 rounded px-3 py-2 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter final diagnosis..."
                 />
+                <Error name="finalDiagnosis" />
               </div>
 
               <div>
@@ -547,6 +642,7 @@ const PrescriptionGenerator = () => {
                     Treatment Plan (Medicines)
                   </label>
                   <button
+                    type="button"
                     onClick={addMedicine}
                     className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 flex items-center space-x-1"
                   >
@@ -567,6 +663,7 @@ const PrescriptionGenerator = () => {
                         </span>
                         {formData.medicines.length > 1 && (
                           <button
+                            type="button"
                             onClick={() => removeMedicine(index)}
                             className="text-red-500 hover:text-red-700"
                           >
@@ -575,80 +672,138 @@ const PrescriptionGenerator = () => {
                         )}
                       </div>
 
+                      {/* Visible suggestion dropdown */}
                       <div className="space-y-2">
-                        <div>
+                        <div className="relative">
                           <input
+                            name={`medicines.${index}.name`}
+                            data-field={`medicines.${index}.name`}
                             type="text"
                             placeholder="Search or type medicine name"
                             value={medicine.name}
-                            onChange={(e) =>
+                            onChange={(e) => {
+                              setQuery(e.target.value);
                               handleMedicineChange(
                                 index,
                                 "name",
                                 e.target.value
-                              )
-                            }
+                              );
+                            }}
+                            onFocus={() => {
+                              setQuery(medicine.name);
+                              setOpenIndex(index);
+                            }}
+                            onBlur={() => {
+                              // slight delay to allow click on option
+                              setTimeout(() => {
+                                if (openIndex === index) setOpenIndex(null);
+                              }, 150);
+                            }}
+                            required
+                            autoComplete="off"
                             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            list={`medicines-${index}`}
                           />
-                          <datalist id={`medicines-${index}`}>
-                            {predefinedMedicines.map((med, i) => (
-                              <option key={i} value={med} />
-                            ))}
-                          </datalist>
+                          <Error name={`medicines.${index}.name`} />
+
+                          {openIndex === index && (
+                            <div className="absolute z-50 mt-1 w-full max-h-48 overflow-auto rounded border bg-white shadow">
+                              {filteredMeds.length ? (
+                                filteredMeds.map((m) => (
+                                  <button
+                                    key={m}
+                                    type="button"
+                                    onMouseDown={(e) => e.preventDefault()}
+                                    onClick={() => {
+                                      handleMedicineChange(index, "name", m);
+                                      setOpenIndex(null);
+                                    }}
+                                    className="block w-full text-left px-3 py-2 hover:bg-gray-100"
+                                  >
+                                    {m}
+                                  </button>
+                                ))
+                              ) : (
+                                <div className="px-3 py-2 text-sm text-gray-500">
+                                  No matches
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </div>
 
-                        <input
-                          type="text"
-                          placeholder="Dosage (e.g., 1 tablet, 5ml)"
-                          value={medicine.dosage}
-                          onChange={(e) =>
-                            handleMedicineChange(
-                              index,
-                              "dosage",
-                              e.target.value
-                            )
-                          }
-                          className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+                        <div>
+                          <input
+                            name={`medicines.${index}.dosage`}
+                            data-field={`medicines.${index}.dosage`}
+                            type="text"
+                            placeholder="Dosage (e.g., 1 tablet, 5ml)"
+                            value={medicine.dosage}
+                            onChange={(e) =>
+                              handleMedicineChange(
+                                index,
+                                "dosage",
+                                e.target.value
+                              )
+                            }
+                            required
+                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          />
+                          <Error name={`medicines.${index}.dosage`} />
+                        </div>
 
-                        <select
-                          value={medicine.frequency}
-                          onChange={(e) =>
-                            handleMedicineChange(
-                              index,
-                              "frequency",
-                              e.target.value
-                            )
-                          }
-                          className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                          <option value="">Frequency per day</option>
-                          <option value="1">Once a day</option>
-                          <option value="2">Twice a day</option>
-                          <option value="3">Three times a day</option>
-                          <option value="4">Four times a day</option>
-                        </select>
+                        <div>
+                          <select
+                            name={`medicines.${index}.frequency`}
+                            data-field={`medicines.${index}.frequency`}
+                            value={medicine.frequency}
+                            onChange={(e) =>
+                              handleMedicineChange(
+                                index,
+                                "frequency",
+                                e.target.value
+                              )
+                            }
+                            required
+                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          >
+                            <option value="" disabled>
+                              Frequency per day
+                            </option>
+                            <option value="1">Once a day</option>
+                            <option value="2">Twice a day</option>
+                            <option value="3">Three times a day</option>
+                            <option value="4">Four times a day</option>
+                          </select>
+                          <Error name={`medicines.${index}.frequency`} />
+                        </div>
 
-                        <select
-                          value={medicine.timing}
-                          onChange={(e) =>
-                            handleMedicineChange(
-                              index,
-                              "timing",
-                              e.target.value
-                            )
-                          }
-                          className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                          <option value="">When to take</option>
-                          <option value="Before meals">Before meals</option>
-                          <option value="After meals">After meals</option>
-                          <option value="With meals">With meals</option>
-                          <option value="Empty stomach">Empty stomach</option>
-                          <option value="At bedtime">At bedtime</option>
-                          <option value="As needed">As needed</option>
-                        </select>
+                        <div>
+                          <select
+                            name={`medicines.${index}.timing`}
+                            data-field={`medicines.${index}.timing`}
+                            value={medicine.timing}
+                            onChange={(e) =>
+                              handleMedicineChange(
+                                index,
+                                "timing",
+                                e.target.value
+                              )
+                            }
+                            required
+                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          >
+                            <option value="" disabled>
+                              When to take
+                            </option>
+                            <option value="Before meals">Before meals</option>
+                            <option value="After meals">After meals</option>
+                            <option value="With meals">With meals</option>
+                            <option value="Empty stomach">Empty stomach</option>
+                            <option value="At bedtime">At bedtime</option>
+                            <option value="As needed">As needed</option>
+                          </select>
+                          <Error name={`medicines.${index}.timing`} />
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -663,24 +818,37 @@ const PrescriptionGenerator = () => {
               Doctor Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <input
-                type="text"
-                placeholder="Doctor Name"
-                value={formData.doctorName}
-                onChange={(e) =>
-                  handleInputChange("doctorName", e.target.value)
-                }
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <input
-                type="text"
-                placeholder="Doctor Designation"
-                value={formData.doctorDesignation}
-                onChange={(e) =>
-                  handleInputChange("doctorDesignation", e.target.value)
-                }
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <div>
+                <input
+                  name="doctorName"
+                  data-field="doctorName"
+                  type="text"
+                  placeholder="Doctor Name"
+                  value={formData.doctorName}
+                  onChange={(e) =>
+                    handleInputChange("doctorName", e.target.value)
+                  }
+                  required
+                  className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+                <Error name="doctorName" />
+              </div>
+
+              <div>
+                <input
+                  name="doctorDesignation"
+                  data-field="doctorDesignation"
+                  type="text"
+                  placeholder="Doctor Designation"
+                  value={formData.doctorDesignation}
+                  onChange={(e) =>
+                    handleInputChange("doctorDesignation", e.target.value)
+                  }
+                  required
+                  className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+                <Error name="doctorDesignation" />
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -697,6 +865,7 @@ const PrescriptionGenerator = () => {
                     ref={signatureRef}
                   />
                   <button
+                    type="button"
                     onClick={() => signatureRef.current?.click()}
                     className="bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600 flex items-center space-x-2"
                   >
@@ -726,6 +895,7 @@ const PrescriptionGenerator = () => {
                     ref={sealRef}
                   />
                   <button
+                    type="button"
                     onClick={() => sealRef.current?.click()}
                     className="bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600 flex items-center space-x-2"
                   >
@@ -747,14 +917,14 @@ const PrescriptionGenerator = () => {
           {/* Action Buttons */}
           <div className="flex justify-center space-x-4 mt-8">
             <button
-              onClick={() => setShowPreview(true)}
+              type="submit"
               className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
             >
               <Eye size={20} />
               <span>Preview Prescription</span>
             </button>
           </div>
-        </div>
+        </form>
       </div>
 
       <style jsx>{`

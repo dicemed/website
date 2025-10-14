@@ -79,7 +79,7 @@ const Hero = () => {
               transition={{ delay: 0.6, duration: 1 }}
             >
               Revolutionizing Healthcare with AI-Powered <br />
-              Medical Imaging Solutions.
+              Imaging Solutions.
             </motion.p>
 
             <motion.div
