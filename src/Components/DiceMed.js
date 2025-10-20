@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import yourImage from "../Assets/ajo.jpg";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import athulImage from "../Assets/atul.png";
 import sreehariImage from "../Assets/sreehari.png";
 import pranavImage from "../Assets/WhatsApp Image 2025-03-24 at 16.14.57_2dad9595.jpg";
@@ -15,10 +15,243 @@ import rejiImage from "../Assets/reji.jpg";
 import newsImg1 from "../Assets/newsImg1.png";
 import newsImg2 from "../Assets/newsImg2.png";
 import newsImg3 from "../Assets/newsImg3.png";
+import YohannImg from "../Assets/Yohann1.png";
+import GadhaImg from "../Assets/Gadha.png";
+import JoelImg from "../Assets/Joel.png";
+import NehaImg from "../Assets/Neha.webp";
+import NikhilImg from "../Assets/Nikhil.png"
+import { SiGooglescholar } from "react-icons/si";
+import miccai_first from "../Assets/miccai_first.jpg"
+import miccai_third from "../Assets/miccai_third.jpg"
+import miccai_trophy from "../Assets/miccai_trophy.jpg"
+
+
+//Localized Achievements Component
+const AchievementsCarousel = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [currentCard, setCurrentCard] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const cards = [
+    // MICCAI 2025 CARD
+    <motion.div
+      whileHover={{ y: -6, scale: 1.01 }}
+      transition={{ type: "spring", stiffness: 220, damping: 24 }}
+      className="relative bg-white rounded-3xl shadow-md hover:shadow-xl ring-1 ring-gray-100 
+                 transition-all duration-500 overflow-hidden max-w-5xl mx-auto p-0"
+    >
+      <div className="bg-gradient-to-r from-sky-100 via-indigo-50 to-cyan-100 text-gray-800 py-5 px-8 text-left border-b border-gray-200">
+        <h3 className="text-xl md:text-2xl font-semibold text-gray-800">
+          MICCAI 2025 — ODIN Challenge
+        </h3>
+        <p className="text-gray-600 text-sm md:text-base mt-1">
+          Computational Dentistry • Daejeon, South Korea
+        </p>
+      </div>
+
+      <div className="p-8 md:p-10 flex flex-col items-center text-center space-y-6 bg-gradient-to-br from-indigo-50 via-white to-sky-50">
+        <p className="text-gray-700 text-lg text-justify leading-relaxed max-w-3xl">
+          DiceMed’s AI-driven research projects achieved <strong>1st</strong> and 
+          <strong> 3rd</strong> place at the <em>ODIN Challenge on Computational Dentistry</em> 
+          during <strong>MICCAI 2025</strong>, held in Daejeon, South Korea.  
+          The approved projects focused on <strong>Cone-Beam Computed Tomography (CBCT)</strong>–based 
+          innovations, including <em>CBCT–Intra Oral Scanning Registration</em> and 
+          <em> CBCT Teeth and Root Pulp Canal Segmentation</em>, highlighting our 
+          advancements in <strong>computational dentistry</strong> and 
+          <strong> 3D medical imaging AI</strong>.
+        </p>
+
+        {/* Certificates */}
+        <div className="flex flex-wrap justify-center gap-10 mt-4">
+          {[ 
+            { src: miccai_first, alt: "1st Prize", label: "1st Place – ODIN Challenge" },
+            { src: miccai_third, alt: "3rd Prize", label: "3rd Place – ODIN Challenge" },
+          ].map((img, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -4, scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 220, damping: 20 }}
+              onClick={() => setSelectedImage(img.src)}
+              className="relative cursor-pointer w-[300px] sm:w-[340px] aspect-[4/3] 
+                         bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg 
+                         border border-gray-100 hover:border-indigo-200 transition-all duration-500"
+            >
+              <div className="absolute top-3 left-3 bg-gradient-to-r from-indigo-500 to-sky-500 text-white 
+                              text-xs font-semibold px-3 py-1 rounded-full shadow-md z-10">
+                {img.label}
+              </div>
+              <img src={img.src} alt={img.alt} className="w-full h-full object-cover rounded-2xl transition-transform duration-700 hover:scale-105" />
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="flex justify-center items-center gap-3 mt-6 text-indigo-600 font-medium text-sm">
+          <i className="fas fa-award text-indigo-500"></i>
+          International Recognition • Computational Dentistry • Deep Learning
+        </div>
+      </div>
+    </motion.div>,
+
+    // PATENT CARD
+    <motion.div
+      whileHover={{ y: -6, scale: 1.01 }}
+      transition={{ type: "spring", stiffness: 220, damping: 24 }}
+      className="relative bg-white rounded-3xl shadow-md hover:shadow-xl ring-1 ring-gray-100 
+                 transition-all duration-500 overflow-hidden max-w-4xl mx-auto p-0"
+    >
+      <div className="bg-gradient-to-r from-indigo-50 via-sky-100 to-cyan-100 text-gray-800 py-5 px-8 text-left border-b border-gray-200">
+        <h3 className="text-xl md:text-2xl font-semibold text-gray-800">
+          Patent Granted — Based on Explainable AI Research (Grad-CAM/Grad-CAM++)
+        </h3>
+        <p className="text-gray-600 text-sm md:text-base mt-1">
+          Building on our publication “Grad-CAM & Grad-CAM++ for Explainable Oral Squamous Cell Carcinoma Detection”, we secured a patent for the AI-based diagnostic imaging framework.
+        </p>
+      </div>
+      <div className="p-8 md:p-10 bg-gradient-to-br from-white via-indigo-50 to-sky-50 text-center flex flex-col items-center space-y-5">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 max-w-3xl">
+          <p className="text-gray-700 text-lg text-justify leading-relaxed">
+            Building upon our{" "}
+            <strong>IEEE SENNET 2025</strong> publication — 
+            <em>“Grad-CAM & Grad-CAM++ for Explainable Oral Squamous Cell Carcinoma Detection using Deep Learning on Orthopantomograms”</em> — 
+            this research culminated in a <strong>granted patent</strong> for an 
+            <strong> AI-based diagnostic imaging framework</strong>.  
+            It bridges explainable deep learning and clinical radiology, enabling 
+            transparent and trustworthy diagnostic support systems in oral cancer screening.
+          </p>
+        </div>
+        <div className="flex items-center justify-center gap-3 mt-4 text-sky-600 font-medium text-sm">
+          <i className="fas fa-lightbulb text-sky-500"></i>
+          Publication → Patent • Explainable AI • Clinical Innovation
+        </div>
+      </div>
+    </motion.div>,
+  ];
+
+  //  Auto-slide effect 
+  useEffect(() => {
+    if (paused) return;
+    const slideInterval = setInterval(() => {
+      setCurrentCard((prev) => (prev + 1) % cards.length);
+    }, 4000);
+    return () => clearInterval(slideInterval);
+  }, [paused, cards.length]);
+
+  return (
+    <div
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      className="max-w-6xl mx-auto text-center relative"
+    >
+      <motion.h2
+        initial={{ y: 50, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="text-4xl font-semibold tracking-tight text-gray-900"
+      >
+        Achievements & Recognitions
+      </motion.h2>
+
+      <p className="mt-3 text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
+        Celebrating milestones that highlight our dedication to clinical AI, innovation, and impactful research.
+      </p>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="mt-8 flex justify-center"
+      >
+      </motion.div>
+
+      {/* Carousel */}
+      <motion.div
+        initial={{ y: 80, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative mt-16 overflow-hidden group"
+      >
+        {/* Arrows */}
+        <button
+          onClick={() => setCurrentCard((prev) => (prev === 0 ? cards.length - 1 : prev - 1))}
+          className="absolute left-3 top-1/2 -translate-y-1/2 
+             bg-indigo-50/90 hover:bg-indigo-100
+             text-indigo-700
+             rounded-full shadow-md p-3 z-10
+             opacity-0 group-hover:opacity-100
+             transition-all duration-300 ease-out
+             hover:scale-105"
+        >
+          <i className="fas fa-chevron-left "></i>
+        </button>
+
+        <button
+          onClick={() => setCurrentCard((prev) => (prev + 1) % cards.length)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 
+             bg-indigo-50/90 hover:bg-indigo-100
+             text-indigo-700
+             rounded-full shadow-md p-3 z-10
+             opacity-0 group-hover:opacity-100
+             transition-all duration-300 ease-out
+             hover:scale-105"
+        >
+          <i className="fas fa-chevron-right"></i>
+        </button>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentCard}
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -100, opacity: 0 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="flex justify-center"
+          >
+            {cards[currentCard]}
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div
+              className="relative bg-white p-4 rounded-xl shadow-2xl max-w-3xl w-[90%]"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-lg font-semibold"
+              >
+                ✕
+              </button>
+              <img src={selectedImage} alt="Enlarged Certificate" className="w-full h-auto rounded-lg shadow-md" />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 
 const DiceMed = () => {
   // dont ever remove below comment
   // "homepage": "https://ajogeorge29.github.io/dicemed",
+
 
   const [contactForm, setContactForm] = useState({
     name: "",
@@ -93,7 +326,7 @@ const DiceMed = () => {
         <>
           <ul className="list-disc list-inside text-gray-700 text-lg leading-relaxed text-justify space-y-2">
             <li>
-              Combines strong <strong>medical expertise</strong> with advanced{" "}
+              Combines strong <strong>clinical expertise</strong> with advanced{" "}
               <strong>technological acumen</strong>.
             </li>
             <li>
@@ -256,13 +489,13 @@ const DiceMed = () => {
                               <i className="fab fa-linkedin" />
                             </a>
                             <a
-                              href="https://github.com/Ajogeorge29"
+                              href="https://scholar.google.com/citations?user=2c0XSHsAAAAJ&hl=en"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-gray-800 hover:text-black transition"
-                              aria-label="GitHub"
+                              className="text-blue-700 hover:text-blue-900 transition"
+                              aria-label="Google Scholar"
                             >
-                              <i className="fab fa-github" />
+                              <SiGooglescholar size={20} />
                             </a>
                             <a
                               href="mailto:drajo_george@DiceMed.in"
@@ -380,7 +613,7 @@ const DiceMed = () => {
                 year: 2025,
                 venue: "—",
                 authors: "",
-                type: "Preprint",
+                type: "Manuscript",
                 status: "Ongoing",
                 doi: "",
                 pdf: "",
@@ -403,7 +636,7 @@ const DiceMed = () => {
                   "Deep Learning for Oral Health: Benchmarking ViT, DeiT, BEiT, ConvNeXt, and Swin Transformer",
                 year: 2025,
                 venue: "arXiv",
-                authors: "",
+                authors: "A. B. George, S. Bathini, S.R Niranjana",
                 type: "Preprint",
                 status: "Published",
                 doi: "https://arxiv.org/abs/2509.23100",
@@ -415,14 +648,24 @@ const DiceMed = () => {
                   "Multi-Modal Oral Cancer Detection Using Weighted Ensemble Convolutional Neural Networks",
                 year: 2025,
                 venue: "arXiv",
-                authors: "",
+                authors: "A. B. George, J. R. Sreehari",
                 type: "Preprint",
                 status: "Published",
                 doi: "https://arxiv.org/abs/2510.03878",
                 pdf: "https://arxiv.org/pdf/2510.03878",
-                note: "Medical Imaging • Oral Cancer • Deep Learning",
+                note: "COmputer Vision • Oral Cancer • Pattern Recognition",
               },
-              
+              {
+                title:"Grad-CAM & Grad-CAM++ for Explainable Oral Squamous Cell Carcinoma Detection using Deep Learning on Orthopantomograms",
+                year: 2025,
+                venue: "IEEE SENNET 2025",
+                authors: "A. B. George, S. Bathini, G. Arun",
+                type: "Conference Paper",
+                status: "Published",
+                doi: "https://ieeexplore.ieee.org/document/11136014",
+                pdf: "https://ieeexplore.ieee.org/document/11136014", // if you have a PDF link you can fill it
+                note: "Explainable AI • Oral Cancer "
+              }              
             ];
 
             const statusColors = {
@@ -663,6 +906,7 @@ const DiceMed = () => {
           {(() => {
             const roleTone = (role) => {
               // Return a palette for a role label
+              
               if (/Radiolog|Clinical/i.test(role))
                 return {
                   grad: "from-sky-50 to-white",
@@ -684,18 +928,52 @@ const DiceMed = () => {
                   badge: "bg-indigo-100 text-indigo-800 ring-indigo-200",
                   chip: "bg-indigo-50 text-indigo-700 ring-indigo-100",
                 };
-              return {
-                grad: "from-slate-50 to-white",
-                ring: "ring-slate-200",
-                badge: "bg-slate-100 text-slate-800 ring-slate-200",
-                chip: "bg-slate-50 text-slate-700 ring-slate-100",
-              };
+
+              if (/CEO|Leadership|Strategy/i.test(role))
+                return {
+                  grad: "from-teal-50 to-white",
+                  ring: "ring-teal-200",
+                  badge: "bg-teal-100 text-teal-800 ring-teal-200",
+                  chip: "bg-teal-50 text-teal-700 ring-teal-100",
+                };
+
+              if (/Vision|Diagnostics|Healthcare|Medical Imaging/i.test(role))
+                return {
+                  grad: "from-violet-50 to-white",
+                  ring: "ring-violet-200",
+                  badge: "bg-violet-100 text-violet-800 ring-violet-200",
+                  chip: "bg-violet-50 text-violet-700 ring-violet-100",
+                };
+
+              if (/Research|Development|R&D/i.test(role))
+                return {
+                  grad: "from-purple-50 to-white",
+                  ring: "ring-purple-200",
+                  badge: "bg-purple-100 text-purple-800 ring-purple-200",
+                  chip: "bg-purple-50 text-purple-700 ring-purple-100",
+                };
+
+              if (/Mechanical|Hardware|Trainee/i.test(role))
+                return {
+                  grad: "from-teal-50 to-white",
+                  ring: "ring-teal-200",
+                  badge: "bg-teal-100 text-teal-800 ring-teal-200",
+                  chip: "bg-teal-50 text-teal-700 ring-teal-100",
+                };
+
+              // Default fallback
+                return {
+                  grad: "from-slate-50 to-white",
+                  ring: "ring-slate-200",
+                  badge: "bg-slate-100 text-slate-800 ring-slate-200",
+                  chip: "bg-slate-50 text-slate-700 ring-slate-100",
+                };
             };
 
             const TeamCard = ({ person, idx }) => {
-              const tone = roleTone(person.role || "");
-              return (
-                <motion.article
+            const tone = roleTone(person.role || "");
+            return (
+              <motion.article
                   initial={{ y: 14, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true, amount: 0.25 }}
@@ -704,97 +982,86 @@ const DiceMed = () => {
                     delay: (idx || 0) * 0.05,
                   }}
                   className={[
-                    "group relative overflow-hidden rounded-2xl border border-white",
-                    "bg-gradient-to-br",
-                    tone.grad,
-                    "shadow-sm hover:shadow-lg ring-1",
-                    tone.ring,
-                    "transition-shadow",
-                  ].join(" ")}
+                  "group relative overflow-hidden rounded-2xl border border-white",
+                  "bg-gradient-to-br",tone.grad,"shadow-sm hover:shadow-md ring-1",
+                  tone.ring,"transition-all duration-300 flex flex-col items-center text-center",].join(" ")}
                   style={{
-                    
-                    backgroundImage: `linear-gradient(to bottom right, transparent, transparent),
-                radial-gradient(40rem 40rem at 120% -10%, rgba(0,0,0,.02), transparent 60%)`,
-                    backgroundBlendMode: "overlay",
-                  }}
-                >
-                  {/* Corner accent */}
-                  <div className="pointer-events-none absolute -right-8 -top-8 w-32 h-32 rounded-full bg-gradient-to-br from-white/40 to-transparent blur-xl opacity-70" />
-                  {/* Top stripe */}
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-black/0 via-black/5 to-black/0" />
+                  backgroundImage: `linear-gradient(to bottom right, transparent, transparent),
+                  radial-gradient(40rem 40rem at 120% -10%, rgba(0,0,0,.02), transparent 60%)`,
+                  backgroundBlendMode: "overlay",
+                  }}>
+                {/* Image Section */}
+                <div className="relative mt-5">
+                  <div className="overflow-hidden rounded-2xl w-24 h-24 sm:w-28 sm:h-28 ring-4 ring-white shadow-md bg-white">
+                      <img
+                        src={person.image} alt={person.name}
+                        className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                      />
+                </div>
+                {/* Active dot */}
+                <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-white ring-2 ring-white grid place-items-center">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                </span>
+                
+      </div>
 
-                  <div className="p-6">
-                    <div className="flex items-center gap-4">
-                      <div className="relative">
-                        <img
-                          src={person.image}
-                          alt={person.name}
-                          className="w-16 h-16 rounded-xl object-cover ring-4 ring-white shadow-sm"
-                        />
-                        {/* Small status dot*/}
-                        <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-white ring-2 ring-white grid place-items-center">
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                        </span>
-                      </div>
+      {/* Text Content */}
+      <div className="p-4 sm:p-5 flex flex-col items-center">
+        <h4 className="text-base font-semibold text-gray-900 leading-tight mt-3">
+          {person.name}
+        </h4>
+        <div className="mt-1">
+          <span
+            className={[
+              "px-2 py-0.5 text-[12px] font-medium rounded-full ring-1",
+              tone.badge,
+            ].join(" ")}
+          >
+            {person.role}
+          </span>
+        </div>
 
-                      <div>
-                        <h4 className="text-lg font-semibold text-gray-900">
-                          {person.name}
-                        </h4>
-                        <div className="mt-1 inline-flex items-center gap-2">
-                          <span
-                            className={[
-                              "px-2 py-0.5 text-xs font-medium rounded-full ring-1",
-                              tone.badge,
-                            ].join(" ")}
-                          >
-                            {person.role}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+        {/* Tags */}
+        {person.tags?.length ? (
+        <div className="mt-2 flex flex-wrap justify-center gap-1">
+          {person.tags
+            .filter(
+            (t) => !person.role.toLowerCase().includes(t.toLowerCase())
+            )
+            .map((t) => (
+                <span key={t}
+                className={["text-[10px] px-2 py-0.5 rounded-full ring-1",
+                tone.chip,].join(" ")}>
+                  {t}
+                </span>
+            ))}
+          </div>
+        ) : null}
 
-                    {/* Chips row */}
-                    {person.tags?.length ? (
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {person.tags.map((t) => (
-                          <span
-                            key={t}
-                            className={[
-                              "text-xs px-2 py-1 rounded-full ring-1",
-                              tone.chip,
-                            ].join(" ")}
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
 
-                    <div className="mt-5 flex items-center justify-between">
-                      <div className="text-xs text-gray-500">
-                        DiceMed • Team
-                      </div>
-                      {person.linkedin && person.linkedin !== "#" ? (
-                        <a
-                          href={person.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${person.name} on LinkedIn`}
-                          className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900"
-                          title="LinkedIn"
-                        >
-                          <i className="fab fa-linkedin" />
-                          <span className="hidden sm:inline">Connect</span>
-                        </a>
-                      ) : (
-                        <span className="text-xs text-gray-400">—</span>
-                      )}
-                    </div>
-                  </div>
-                </motion.article>
-              );
-            };
+        {/* Footer */}
+        <div className="mt-3 flex items-center justify-between w-full text-xs text-gray-500 gap-6 sm:gap-8">
+          <span>DiceMed • Team</span>
+          {person.linkedin && person.linkedin !== "#" ? (
+            <a
+              href={person.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${person.name} on LinkedIn`}
+              className="inline-flex items-center gap-1.5 font-medium text-gray-700 hover:text-gray-900"
+            >
+              <i className="fab fa-linkedin" />
+              <span className="hidden sm:inline">Connect</span>
+            </a>
+          ) : (
+            <span className="text-gray-400">—</span>
+          )}
+        </div>
+      </div>
+    </motion.article>
+  );
+};
+
 
             {/* Clinical Team */}
             {/* <h3 className="text-3xl font-semibold">Clinical Team</h3>
@@ -862,6 +1129,31 @@ const DiceMed = () => {
                   "https://www.linkedin.com/in/sadhvikbathini",
                 tags: ["Deep Learning"],
               },
+              {
+                name: "Yohann Chandy",
+                role: "CEO Intern",
+                image: YohannImg,
+                linkedin:
+                  "https://www.linkedin.com/in/yohannchandy",
+                tags: ["Leadership", "Strategy", "Innovation"],
+              },
+              {
+                name: "Gadha Lekshmi P",
+                role: "Computer Vision Expert",
+                image: GadhaImg,
+                linkedin:
+                  "https://www.linkedin.com/in/gadha-lekshmi-p-848741268/",
+                tags: ["Deep Learning", "Medical Imaging", "AI Diagnostics"],
+              },
+              {
+                name: "Neha Ann Binoy",
+                role: "Jr. Software Developer",
+                image: NehaImg,
+                linkedin:
+                  "https://www.linkedin.com/in/neha-ann-binoy-nab/",
+                tags: ["Full-Stack", "AI Integration"],
+              },
+              
             ];
 
             {/* Research Team */}
@@ -897,12 +1189,12 @@ const DiceMed = () => {
                 tags: ["Intern"],
               },
               {
-                name: "Sreehari",
-                role: "ML Intern",
-                image: sreehariImage,
+                name: "Nikhil K",
+                role: "Mechanical Engineering Trainee",
+                image: NikhilImg,
                 linkedin:
-                  "http://www.linkedin.com/in/sreehari-j-r-1b9b991ba",
-                tags: ["Intern"],
+                  "https://www.linkedin.com/in/nikhil-k-a09377235/",
+                tags: [""],
               },
               {
                 name: "Pranav",
@@ -910,6 +1202,14 @@ const DiceMed = () => {
                 image: pranavImage,
                 linkedin: "http://www.linkedin.com/in/s-pranav-s",
                 tags: ["Intern"],
+              },
+              {
+                name: "Joel Varghese Oommen",
+                role: "Research and Development Intern",
+                image: JoelImg,
+                linkedin:
+                  "https://www.linkedin.com/in/joel-oommen-63bb89271/",
+                tags: ["Cognitive Healthcare","AI Innovation"],
               },
             ];
 
@@ -955,6 +1255,15 @@ const DiceMed = () => {
           })()}
         </div>
       </section>
+
+      {/*ACHIEVEMENTS SECTION */}
+      <section
+        id="achievements"
+        className="py-24 px-5 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden"
+      >
+        <AchievementsCarousel />
+      </section>
+
 
       {/* NEWS & HIGHLIGHTS */}
       <section id="news" className="py-20 px-5 bg-gray-50">
