@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import yourImage from "../Assets/ajo.jpg";
 import { motion, AnimatePresence } from "framer-motion";
 import athulImage from "../Assets/atul.png";
-import sreehariImage from "../Assets/sreehari.png";
 import pranavImage from "../Assets/WhatsApp Image 2025-03-24 at 16.14.57_2dad9595.jpg";
 import annaImage from "../Assets/anna.jpg";
 import drImage from "../Assets/dr.png";
@@ -15,6 +14,8 @@ import rejiImage from "../Assets/reji.jpg";
 import newsImg1 from "../Assets/newsImg1.png";
 import newsImg2 from "../Assets/newsImg2.png";
 import newsImg3 from "../Assets/newsImg3.png";
+import newsImg4 from "../Assets/newsImg4.png";
+import newsImg5 from "../Assets/newsImg5.png";
 import YohannImg from "../Assets/Yohann1.png";
 import GadhaImg from "../Assets/Gadha.png";
 import JoelImg from "../Assets/Joel.png";
@@ -23,7 +24,10 @@ import NikhilImg from "../Assets/Nikhil.png"
 import { SiGooglescholar } from "react-icons/si";
 import miccai_first from "../Assets/miccai_first.jpg"
 import miccai_third from "../Assets/miccai_third.jpg"
-import miccai_trophy from "../Assets/miccai_trophy.jpg"
+import rsnaLogo from "../Assets/rsna.png"
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import toothlogo from "../Assets/toothlogo.png"
 
 
 //Localized Achievements Component
@@ -92,39 +96,80 @@ const AchievementsCarousel = () => {
       </div>
     </motion.div>,
 
-    // PATENT CARD
-    <motion.div
-      whileHover={{ y: -6, scale: 1.01 }}
-      transition={{ type: "spring", stiffness: 220, damping: 24 }}
-      className="relative bg-white rounded-3xl shadow-md hover:shadow-xl ring-1 ring-gray-100 
-                 transition-all duration-500 overflow-hidden max-w-4xl mx-auto p-0"
-    >
-      <div className="bg-gradient-to-r from-indigo-50 via-sky-100 to-cyan-100 text-gray-800 py-5 px-8 text-left border-b border-gray-200">
-        <h3 className="text-xl md:text-2xl font-semibold text-gray-800">
-          Patent Granted — Based on Explainable AI Research (Grad-CAM/Grad-CAM++)
-        </h3>
-        <p className="text-gray-600 text-sm md:text-base mt-1">
-          Building on our publication “Grad-CAM & Grad-CAM++ for Explainable Oral Squamous Cell Carcinoma Detection”, we secured a patent for the AI-based diagnostic imaging framework.
-        </p>
-      </div>
-      <div className="p-8 md:p-10 bg-gradient-to-br from-white via-indigo-50 to-sky-50 text-center flex flex-col items-center space-y-5">
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 max-w-3xl">
-          <p className="text-gray-700 text-lg text-justify leading-relaxed">
-            Building upon our{" "}
-            <strong>IEEE SENNET 2025</strong> publication — 
-            <em>“Grad-CAM & Grad-CAM++ for Explainable Oral Squamous Cell Carcinoma Detection using Deep Learning on Orthopantomograms”</em> — 
-            this research culminated in a <strong>granted patent</strong> for an 
-            <strong> AI-based diagnostic imaging framework</strong>.  
-            It bridges explainable deep learning and clinical radiology, enabling 
-            transparent and trustworthy diagnostic support systems in oral cancer screening.
-          </p>
-        </div>
-        <div className="flex items-center justify-center gap-3 mt-4 text-sky-600 font-medium text-sm">
-          <i className="fas fa-lightbulb text-sky-500"></i>
-          Publication → Patent • Explainable AI • Clinical Innovation
-        </div>
-      </div>
-    </motion.div>,
+    // PATENT CARD — US Patent
+<motion.div
+  whileHover={{ y: -6, scale: 1.01 }}
+  transition={{ type: "spring", stiffness: 220, damping: 24 }}
+  className="relative bg-white rounded-3xl shadow-md hover:shadow-xl ring-1 ring-gray-100 
+             transition-all duration-500 overflow-hidden max-w-4xl mx-auto p-0"
+>
+  <div className="bg-gradient-to-r from-indigo-50 via-sky-100 to-cyan-100 text-gray-800 py-5 px-8 text-left border-b border-gray-200">
+    <h3 className="text-xl md:text-2xl font-semibold text-gray-800">
+      US Patent Granted — Hybrid ML–CNN Diagnostic Console for Pulmonary Oncology
+    </h3>
+    <p className="text-gray-600 text-sm md:text-base mt-1">
+      Patent No. <strong>US 6460391</strong> • Publication Date: August 1, 2025
+    </p>
+  </div>
+
+  <div className="p-8 md:p-10 bg-gradient-to-br from-white via-indigo-50 to-sky-50 text-center flex flex-col items-center space-y-5">
+    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 max-w-3xl">
+      <p className="text-gray-700 text-lg text-justify leading-relaxed">
+        The patent titled <em>"Hybrid Machine Learning–CNN Based Diagnostic Console for Pulmonary Oncology"</em> represents
+        a collaborative innovation integrating <strong>deep learning</strong> and <strong>medical imaging systems</strong> 
+        to assist in early detection and risk stratification of pulmonary cancers.
+        This multidisciplinary invention merges <strong>AI interpretability</strong>, <strong>clinical radiology</strong>, 
+        and <strong>diagnostic console design</strong> for improved decision support.
+      </p>
+      <p className="mt-4 text-gray-600 text-sm">
+        <strong>Inventors:</strong> Manoj Kumar Beuria, Deepak Patidar, Ashish Kumar Soni, Swathi Dayanand Mahindrakar, 
+        Arun Kumar, Ajo Babu George, Kunal Agarwal, Ujjval Chandra Das, Niharika Singh, Shiwani Singhal, 
+        Bharat Bhushan Verma, Amit Kumar Patil, Suprativ Saha, Mukta Makhija.
+      </p>
+    </div>
+    <div className="flex items-center justify-center gap-3 mt-4 text-indigo-600 font-medium text-sm">
+      <i className="fas fa-certificate text-indigo-500"></i>
+      Granted Patent • AI in Oncology • Diagnostic Innovation
+    </div>
+  </div>
+</motion.div>,
+
+// DESIGN REGISTRATION CARD — Grad-CAM
+<motion.div
+  whileHover={{ y: -6, scale: 1.01 }}
+  transition={{ type: "spring", stiffness: 220, damping: 24 }}
+  className="relative bg-white rounded-3xl shadow-md hover:shadow-xl ring-1 ring-gray-100 
+             transition-all duration-500 overflow-hidden max-w-4xl mx-auto p-0"
+>
+  <div className="bg-gradient-to-r from-sky-50 via-indigo-50 to-cyan-50 text-gray-800 py-5 px-8 text-left border-b border-gray-200">
+    <h3 className="text-xl md:text-2xl font-semibold text-gray-800">
+      UK Registered Design — Grad-CAM Based Explainable AI Visualization
+    </h3>
+    <p className="text-gray-600 text-sm md:text-base mt-1">
+      Registered Design • United Kingdom Intellectual Property Office
+    </p>
+  </div>
+
+  <div className="p-8 md:p-10 bg-gradient-to-br from-white via-sky-50 to-indigo-50 text-center flex flex-col items-center space-y-5">
+    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 max-w-3xl">
+      <p className="text-gray-700 text-lg text-justify leading-relaxed">
+        The visualization and interpretability framework based on <strong>Grad-CAM and Grad-CAM++</strong>, 
+        developed for oral cancer detection research, has been recognized as a 
+        <strong>registered design under the UK Intellectual Property Office</strong>.
+        This design protects the innovative visualization interface and 
+        interpretability layout used in AI-driven medical imaging diagnostics.
+      </p>
+      <p className="mt-4 text-gray-600 text-sm">
+        Originated from the <strong>IEEE SENNET 2025 publication</strong> on explainable AI in oral cancer detection.
+      </p>
+    </div>
+    <div className="flex items-center justify-center gap-3 mt-4 text-sky-600 font-medium text-sm">
+      <i className="fas fa-shield-alt text-sky-500"></i>
+      Registered Design • Explainable AI • Clinical Visualization
+    </div>
+  </div>
+</motion.div>,
+
   ];
 
   //  Auto-slide effect 
@@ -152,7 +197,7 @@ const AchievementsCarousel = () => {
         Achievements & Recognitions
       </motion.h2>
 
-      <p className="mt-3 text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
+      <p className="mt-3 text-gray-600 max-w-2xl mx-auto leading-relaxed">
         Celebrating milestones that highlight our dedication to clinical AI, innovation, and impactful research.
       </p>
 
@@ -660,7 +705,7 @@ const DiceMed = () => {
                 year: 2025,
                 venue: "IEEE SENNET 2025",
                 authors: "A. B. George, S. Bathini, G. Arun",
-                type: "Conference Paper",
+                type: "Design Registered (UK IPO)",
                 status: "Published",
                 doi: "https://ieeexplore.ieee.org/document/11136014",
                 pdf: "https://ieeexplore.ieee.org/document/11136014", // if you have a PDF link you can fill it
@@ -756,10 +801,22 @@ const DiceMed = () => {
                               </svg>
                               {p.year}
                             </span>
+                            {/* Type Badge */}
+                            {p.type === "Design Registered (UK IPO)" ? (
+                              <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 text-amber-700 ring-1 ring-amber-200 px-2.5 py-1 text-xs font-medium relative group cursor-help"
+                              title="Registered under the UK Intellectual Property Office (UK IPO)">
+                              <i className="fas fa-certificate text-[11px]" />
+                              {p.type}
+                              <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] bg-gray-800 text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-md">
+                                Registered under UK Intellectual Property Office
+                              </span>
+                            </span>
+                            ) : (
                             <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200">
-                              <TypeIcon type={p.type} />
+                            <TypeIcon type={p.type} />
                               {p.type}
                             </span>
+                          )}
                           </div>
 
                           <span
@@ -784,7 +841,7 @@ const DiceMed = () => {
                             {p.authors}
                           </p>
                         )}
-
+ 
                         {/* tags */}
                         {tags.length > 0 && (
                           <div className="mt-3 flex flex-wrap gap-2">
@@ -856,7 +913,7 @@ const DiceMed = () => {
                           )}
                         </div>
                       </div>
-
+                          
                       {/* bottom hover accent */}
                       <div className="h-1 bg-gradient-to-r from-blue-600/80 to-blue-400/80 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </article>
@@ -1130,6 +1187,14 @@ const DiceMed = () => {
                 tags: ["Deep Learning"],
               },
               {
+                name: "Anna Mariam John",
+                role: "ML Research Engineer-II",
+                image: annaImage,
+                linkedin:
+                  "https://www.linkedin.com/in/anna-mariam-john",
+                tags: ["AI/ML"],
+              },
+              {
                 name: "Yohann Chandy",
                 role: "CEO Intern",
                 image: YohannImg,
@@ -1171,14 +1236,6 @@ const DiceMed = () => {
                 image: rejiImage,
                 linkedin: "",
                 tags: ["Clinical"],
-              },
-              {
-                name: "Anna Mariam John",
-                role: "Jr. AI/ML Engineer",
-                image: annaImage,
-                linkedin:
-                  "https://www.linkedin.com/in/anna-mariam-john",
-                tags: ["AI/ML"],
               },
               {
                 name: "Athul",
@@ -1264,198 +1321,322 @@ const DiceMed = () => {
         <AchievementsCarousel />
       </section>
 
-
       {/* NEWS & HIGHLIGHTS */}
+
       <section id="news" className="py-20 px-5 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-semibold">News &amp; Highlights</h2>
             <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-              Conferences, awards, releases, and media mentions from the DiceMed
-              team.
+              Conferences, awards, releases, and media mentions from the DiceMed team.
             </p>
           </div>
 
-          {/* Data (you can move this array outside the component later) */}
-          {/* eslint-disable-next-line */}
           {(() => {
             const news = [
-              {
-                id: "conf-iadr-2025",
-                title:
-                  "Grad-CAM/Grad-CAM++ for Explainable Oral Cancer Detection Published (IEEE SENNET 2025)",
-                date: "2025-09-20",
-                location: "Vellore, India",
-                summary:
-                  "Our paper, “Grad-CAM & Grad-CAM++ for Explainable Oral Squamous Cell Carcinoma Detection using Deep Learning on Orthopantomograms,” presents an explainable AI framework that highlights diagnostically relevant regions, improving transparency and clinical trust in deep learning models for radiology.",
-                image: newsImg1, 
-                tags: [
-                  "Publication",
-                  "IEEE",
-                  "SENNET 2025",
-                  "Explainable AI",
-                  "Grad-CAM",
-                  "Medical Imaging",
-                ],
-                ctaLabel: "Read on IEEE Xplore",
-                ctaHref: "https://ieeexplore.ieee.org/document/11136014",
-              },
-              {
-                id: "iadr-asia-2025-recognition",
-                title:
-                  "Featured in IADR Asia Pacific 2025 Keynote on Evidence-Based AI in Healthcare",
-                date: "2025-09-15",
-                location: "NewDelhi, India",
-                summary:
-                  "We sincerely appreciate Dr. Betsy Joseph, PhD, for including DiceMed in her keynote presentation at the IADR Asia Pacific Conference 2025. Her talk, focused on Evidence-Based Research (EBR) for clinicians and innovators, highlighted our shared commitment to ensuring that clinical AI is reliable, transparent, and grounded in peer-reviewed science. We are proud to contribute to a future where AI and evidence-based medicine work together to enhance patient care.",
-                image: newsImg2,
-                tags: [
-                  "Conference",
-                  "IADR 2025",
-                  "Evidence-Based AI",
-                  "Clinical Research",
-                  "Recognition",
-                ],
-                ctaLabel: "View Conference Post",
-                ctaHref:
-                  "https://www.linkedin.com/feed/update/urn:li:activity:7376099452698275840/",
-              },
-              {
-                id: "miccai-odin-2025",
-                title:
-                  "Presenting at MICCAI 2025: ODIN Challenge on Computational Dentistry",
-                date: "2025-09-27",
-                location:
-                  "Daejeon Convention Center (South Korea)",
-                summary:
-                  "Thrilled to announce that Dr. Ajo Babu George will present our work at ODIN 2025 — the Oral and Dental Image aNalysis Challenge, held at MICCAI 2025. He will deliver two consecutive talks: (1) nnU-Net for Tooth and Pulp Root Canal Segmentation in CBCT, and (2) Rigid Registration of CBCT-STL Pairs Using PointNetLK. We’re excited to share our advancements in computational dentistry and grateful to the ODIN 2025 organizers for their support.",
-                image: newsImg3,
-                tags: [
-                  "Conference",
-                  "MICCAI 2025",
-                  "ODIN Challenge",
-                  "Computational Dentistry",
-                  "CBCT",
-                ],
-                ctaLabel: "View Workshop Schedule",
-                ctaHref:
-                  "https://odin-workshops.org/2025/schedule.html",
-              },
-            ];
+            {
+              id: "oral-cancer-ai-ida2025",
+              title:"Showcasing AI-Powered Oral Cancer Detection at IDA Global Conclave 2025",
+              date: "2025-04-12",
+              location: "New Delhi, India",
+              summary: "Thrilled to have showcased our AI-powered detection system for oral cancer and soft tissue lesions using image analysis at the Global Conclave on Oral Health Innovation and Research 2025, organized by the Indian Dental Association (IDA). The platform fostered rich discussions around MedTech, AI-integrated dental tools, and sustainable healthcare. Backed by an AI minor from IIT Ropar and a MedTech Fellowship at IIT Kharagpur, our mission remains clear—building smart, scalable diagnostic tools made for Bharat, by Bharat.",
+              image: newsImg4,
+              tags: [
+              "Conference",
+              "IDA India",
+              "Oral Health Innovation",
+              "Smart Diagnostics",
+              ],
+              ctaLabel: "View LinkedIn Post",
+              ctaHref: "https://www.linkedin.com/feed/update/urn:li:activity:7315020468577624064/",
+            },
+            {
+              id: "ai-cancer-screening-poc",
+              title: "AI-Based Proof-of-Concept Cancer Screening Showcased at IDA Conclave",
+              date: "2025-02-13",
+              location: "New Delhi, India",
+              summary: "Honoured to present our AI-based proof-of-concept cancer screening technology at the Global Conclave on Oral Health Innovation & Research, hosted by the Indian Dental Association. The system leverages user-guided image classification for disease detection, bridging AI and clinical expertise. Grateful to Dr. Kunal Agarwal for mentorship and our collaborators Govind Arun and Deepanshu Arya (IIT KGP – Pre-Doctoral Fellows) for their contributions.",
+              image: newsImg5,
+              tags: [
+                "Innovation Showcase",
+                "Oral Cancer AI",
+                "Proof of Concept",
+                "IDA 2025",
+              ],
+              ctaLabel: "View Event Recap",
+              ctaHref: "https://www.linkedin.com/feed/update/urn:li:activity:7298570236201443329/",
+            },
+            {
+              id: "conf-iadr-2025",
+              title: "Grad-CAM/Grad-CAM++ for Explainable Oral Cancer Detection Published (IEEE SENNET 2025)",
+              date: "2025-09-20",
+              location: "Vellore, India",
+              summary: "Our paper, “Grad-CAM & Grad-CAM++ for Explainable Oral Squamous Cell Carcinoma Detection using Deep Learning on Orthopantomograms,” presents an explainable AI framework that highlights diagnostically relevant regions, improving transparency and clinical trust in deep learning models for radiology.",
+              image: newsImg1,
+              tags: [
+                "Publication",
+                "IEEE",
+                "SENNET 2025",
+                "Explainable AI",
+                "Grad-CAM",
+                "Medical Imaging",
+              ],
+              ctaLabel: "Read on IEEE Xplore",
+              ctaHref: "https://ieeexplore.ieee.org/document/11136014",
+            },
+            {
+              id: "iadr-asia-2025-recognition",
+              title: "Featured in IADR Asia Pacific 2025 Keynote on Evidence-Based AI in Healthcare",
+              date: "2025-09-15",
+              location: "New Delhi, India",
+              summary: "We sincerely appreciate Dr. Betsy Joseph, PhD, for including DiceMed in her keynote presentation at the IADR Asia Pacific Conference 2025. Her talk, focused on Evidence-Based Research (EBR) for clinicians and innovators, highlighted our shared commitment to ensuring that clinical AI is reliable, transparent, and grounded in peer-reviewed science.",
+              image: newsImg2,
+              tags: [
+                "Conference",
+                "IADR 2025",
+                "Evidence-Based AI",
+                "Clinical Research",
+                "Recognition",
+              ],
+              ctaLabel: "View Conference Post",
+              ctaHref: "https://www.linkedin.com/feed/update/urn:li:activity:7376099452698275840/",
+            },
+            {
+              id: "miccai-odin-2025",
+              title: "Presenting at MICCAI 2025: ODIN Challenge on Computational Dentistry",
+              date: "2025-09-27",
+              location: "Daejeon, South Korea",
+              summary: "Thrilled to announce that Dr. Ajo Babu George will present our work at ODIN 2025 — the Oral and Dental Image aNalysis Challenge, held at MICCAI 2025. He will deliver two consecutive talks: (1) nnU-Net for Tooth and Pulp Root Canal Segmentation in CBCT, and (2) Rigid Registration of CBCT-STL Pairs Using PointNetLK. We’re excited to share our advancements in computational dentistry and grateful to the ODIN 2025 organizers for their support.",
+              image: newsImg3,
+              tags: [
+                "Conference",
+                "MICCAI 2025",
+                "ODIN Challenge",
+                "Computational Dentistry",
+                "CBCT",
+              ],
+              ctaLabel: "View Workshop Schedule",
+              ctaHref: "https://odin-workshops.org/2025/schedule.html",
+            },
+          ];
 
-            // sort newest first
-            news.sort(
-              (a, b) => new Date(b.date) - new Date(a.date)
-            );
+        news.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            // Small in-file component to handle expand/collapse per card
-            const NewsCard = ({ item, idx }) => {
-              const [expanded, setExpanded] =
-                React.useState(false);
-              return (
-                <motion.article
-                  initial={{ y: 12, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.35, delay: idx * 0.04 }}
-                  className="rounded-2xl overflow-hidden border border-gray-200 bg-white/80 backdrop-blur shadow-sm hover:shadow-md transition-shadow"
-                >
-                  {/* Image */}
-                  <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover hover:scale-[1.02] transition-transform"
-                      loading="lazy"
-                    />
-                    {/* Date badge */}
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-semibold bg-white/90 text-gray-700 shadow">
-                      {new Date(item.date).toLocaleDateString(
-                        undefined,
-                        {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        }
-                      )}
-                    </div>
-                  </div>
+        const NewsCard = ({ item }) => {
+        const [expanded, setExpanded] = React.useState(false);
+        return (
+          <motion.article
+            initial={{ y: 12, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.35 }}
+            className="rounded-2xl overflow-hidden border border-gray-200 bg-white/80 backdrop-blur shadow-sm hover:shadow-md transition-shadow"
+          >
+            {/* Image */}
+            <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-full object-cover hover:scale-[1.02] transition-transform"
+                loading="lazy"
+              />
+              <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-semibold bg-white/90 text-gray-700 shadow">
+                {new Date(item.date).toLocaleDateString(undefined, {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </div>
+            </div>
 
-                  {/* Content */}
-                  <div className="p-5 flex flex-col">
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {item.tags?.map((t) => (
-                        <span
-                          key={t}
-                          className="text-xs px-2 py-1 rounded-full bg-gray-50 border border-gray-200 text-gray-700"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    <h3 className="text-lg font-semibold text-gray-900 leading-snug">
-                      {item.title}
-                    </h3>
-
-                    {/* Summary */}
-                    <p
-                      className={`mt-2 text-sm text-gray-600 transition-all duration-300 ${
-                        expanded ? "" : "line-clamp-3"
-                      }`}
-                    >
-                      {item.summary}
-                    </p>
-
-                    {/* Read more toggle */}
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setExpanded((v) => !v)
-                      }
-                      className="mt-2 self-start text-sm font-medium text-blue-700 hover:text-blue-900 focus:outline-none"
-                    >
-                      {expanded ? "Read less" : "Read more"}
-                    </button>
-
-                    {/* Meta + CTA */}
-                    <div className="mt-5 flex items-center justify-between">
-                      <div className="text-xs text-gray-400">
-                        Updated{" "}
-                        {new Date(item.date).toLocaleDateString()}
-                      </div>
-                      {item.ctaHref && (
-                        <a
-                          href={item.ctaHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-sm font-medium text-blue-700 hover:text-blue-900"
-                        >
-                          {item.ctaLabel}
-                          <i className="fas fa-arrow-right" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </motion.article>
-              );
-            };
-
-            return (
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {news.map((item, idx) => (
-                  <NewsCard
-                    key={item.id}
-                    item={item}
-                    idx={idx}
-                  />
+            {/* Content */}
+            <div className="p-5 flex flex-col">
+              <div className="flex flex-wrap gap-2 mb-3">
+                {item.tags?.map((t) => (
+                  <span
+                    key={t}
+                    className="text-xs px-2 py-1 rounded-full bg-gray-50 border border-gray-200 text-gray-700"
+                  >
+                    {t}
+                  </span>
                 ))}
               </div>
-            );
-          })()}
+
+              <h3 className="text-lg font-semibold text-gray-900 leading-snug">
+                {item.title}
+              </h3>
+
+              <p
+                className={`mt-2 text-sm text-gray-600 transition-all duration-300 ${
+                  expanded ? "" : "line-clamp-3"
+                }`}
+              >
+                {item.summary}
+              </p>
+
+              <button
+                type="button"
+                onClick={() => setExpanded((v) => !v)}
+                className="mt-2 self-start text-sm font-medium text-blue-700 hover:text-blue-900 focus:outline-none"
+              >
+                {expanded ? "Read less" : "Read more"}
+              </button>
+
+              <div className="mt-5 flex items-center justify-between">
+                <div className="text-xs text-gray-400">
+                  Updated {new Date(item.date).toLocaleDateString()}
+                </div>
+                {item.ctaHref && (
+                  <a
+                    href={item.ctaHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-blue-700 hover:text-blue-900"
+                  >
+                    {item.ctaLabel}
+                    <i className="fas fa-arrow-right" />
+                  </a>
+                )}
+              </div>
+            </div>
+          </motion.article>
+        );
+      };
+
+      return (
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={24}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          className="news-carousel"
+        >
+          {news.map((item) => (
+            <SwiperSlide key={item.id}>
+              <NewsCard item={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      );
+    })()}
+  </div>
+</section>
+
+
+      <section  id="competitions" className="py-20 bg-gradient-to-b from-white via-indigo-50 to-sky-50 relative">
+      <div className="max-w-6xl mx-auto px-6 text-center">
+        <motion.h2
+      initial={{ y: 30, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="text-3xl md:text-4xl font-semibold text-gray-900"
+    >
+      Global Competitions
+    </motion.h2>
+    <p className="mt-3 text-gray-600 max-w-2xl mx-auto leading-relaxed mb-5">
+      Advancing healthcare innovation through participation in global AI
+      competitions, fostering collaboration between research and industry.
+    </p>
+
+    <div className="grid md:grid-cols-2 gap-8 justify-center mt-10">
+      {/* RSNA Challenge Card */}
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="bg-white rounded-2xl shadow-sm hover:shadow-md ring-1 ring-gray-100 transition-all duration-300 p-6 flex flex-col justify-between"
+      >
+        <div className="flex flex-col items-center space-y-3">
+          <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-gray-200 shadow-md bg-white">
+            <img
+              src={rsnaLogo}
+              alt="RSNA Logo"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <h3 className="text-lg font-semibold text-gray-800">
+            RSNA Intracranial Aneurysm Detection Challenge 2025
+          </h3>
+
+          <div className="text-sm text-gray-600 space-y-1">
+            <p>
+              <strong>Rank:</strong> #878 / 1,147 Teams
+            </p>
+            <p>
+              <strong>Entrants:</strong> 8,262
+            </p>
+            <p>
+              <strong>Submissions:</strong> 16,298
+            </p>
+          </div>
+
+          <a
+            href="https://www.kaggle.com/competitions/rsna-intracranial-aneurysm-detection/leaderboard?search=Dicemed&tab=public"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-sky-500 text-white text-sm font-medium hover:from-blue-700 hover:to-sky-600 transition"
+          >
+            View Leaderboard <i className="fas fa-arrow-right"></i>
+          </a>
         </div>
-      </section>
+      </motion.div>
+
+      {/* MICCAI ToothFairy2 Challenge Card */}
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="bg-white rounded-2xl shadow-sm hover:shadow-md ring-1 ring-gray-100 transition-all duration-300 p-6 flex flex-col justify-between"
+      >
+        <div className="flex flex-col items-center space-y-3">
+          <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-gray-200 shadow-md bg-white">
+            <img
+              src={toothlogo} // or replace with a ToothFairy2 logo if available
+              alt="ToothFairy2 Logo"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <h3 className="text-lg font-semibold text-gray-800">
+            MICCAI 2024 ToothFairy2 Challenge
+          </h3>
+
+          <div className="text-sm text-gray-600 space-y-1">
+            <p>
+              <strong>Rank:</strong> #25 / 179 Participants
+            </p>
+            <p>
+              <strong>Task:</strong> 3D CBCT Tooth &amp; Anatomy Segmentation
+            </p>
+            <p>
+              <strong>Host:</strong> Radboud University &amp; UNIMORE
+            </p>
+          </div>
+
+          <a
+            href="https://toothfairy2.grand-challenge.org/evaluation/final-test-phase-phase/leaderboard/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-sky-500 text-white text-sm font-medium hover:from-blue-700 hover:to-sky-600 transition"
+          >
+            View Challenge <i className="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </motion.div>
+    </div>
+  </div>
+</section>
+
 
       {/* Contact */}
       <section id="contact" className="py-20 px-5 bg-transparent">

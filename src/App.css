@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
 
 
 .App {
@@ -40,4 +43,27 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.news-carousel {
+  padding-bottom: 3rem;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #1d4ed8;
+  transition: color 0.3s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #1e3a8a;
+}
+
+.swiper-pagination-bullet {
+  background: #cbd5e1;
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background: #1d4ed8;
 }
