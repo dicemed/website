@@ -27,8 +27,8 @@ import miccai_third from "../Assets/miccai_third.jpg"
 import rsnaLogo from "../Assets/rsna.png"
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import toothlogo from "../Assets/toothlogo.png"
-
+import miccai from "../Assets/miccai.png"
+import smart from "../Assets/smart.png"
 
 //Localized Achievements Component
 const AchievementsCarousel = () => {
@@ -96,7 +96,7 @@ const AchievementsCarousel = () => {
       </div>
     </motion.div>,
 
-    // PATENT CARD — US Patent
+    // PATENT CARD — UK Design Patent
 <motion.div
   whileHover={{ y: -6, scale: 1.01 }}
   transition={{ type: "spring", stiffness: 220, damping: 24 }}
@@ -104,18 +104,22 @@ const AchievementsCarousel = () => {
              transition-all duration-500 overflow-hidden max-w-4xl mx-auto p-0"
 >
   <div className="bg-gradient-to-r from-indigo-50 via-sky-100 to-cyan-100 text-gray-800 py-5 px-8 text-left border-b border-gray-200">
-    <h3 className="text-xl md:text-2xl font-semibold text-gray-800">
-      US Patent Granted — Hybrid ML–CNN Diagnostic Console for Pulmonary Oncology
+    <h3 className="text-xl md:text-xl font-semibold text-gray-800">
+      UK Design Patent — Hybrid ML–CNN Diagnostic Console for Pulmonary Oncology
     </h3>
-    <p className="text-gray-600 text-sm md:text-base mt-1">
-      Patent No. <strong>US 6460391</strong> • Publication Date: August 1, 2025
+    <p style= {{ fontSize: '0.85rem', color:'#777', fontStyle: 'italic'}}>
+      Protected under <strong>UK Registered Design No. 6460391</strong>, granted by the UK Intellectual Property Office.
     </p>
+    <a href="https://drive.google.com/file/d/1dDC-kkGrmtJee7mN62VqGsdLYb3srSnX/view?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+    style={{ display: 'inline-block', marginTop: '0.5rem', fontSize: '0.9rem', color: '#0056b3', textDecoration: 'underline'}}>
+      View UK Registered Design Certificate (PDF)</a>
+
   </div>
 
   <div className="p-8 md:p-10 bg-gradient-to-br from-white via-indigo-50 to-sky-50 text-center flex flex-col items-center space-y-5">
     <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 max-w-3xl">
       <p className="text-gray-700 text-lg text-justify leading-relaxed">
-        The patent titled <em>"Hybrid Machine Learning–CNN Based Diagnostic Console for Pulmonary Oncology"</em> represents
+        The design patent titled <em>"Hybrid Machine Learning–CNN Based Diagnostic Console for Pulmonary Oncology"</em> represents
         a collaborative innovation integrating <strong>deep learning</strong> and <strong>medical imaging systems</strong> 
         to assist in early detection and risk stratification of pulmonary cancers.
         This multidisciplinary invention merges <strong>AI interpretability</strong>, <strong>clinical radiology</strong>, 
@@ -129,43 +133,7 @@ const AchievementsCarousel = () => {
     </div>
     <div className="flex items-center justify-center gap-3 mt-4 text-indigo-600 font-medium text-sm">
       <i className="fas fa-certificate text-indigo-500"></i>
-      Granted Patent • AI in Oncology • Diagnostic Innovation
-    </div>
-  </div>
-</motion.div>,
-
-// DESIGN REGISTRATION CARD — Grad-CAM
-<motion.div
-  whileHover={{ y: -6, scale: 1.01 }}
-  transition={{ type: "spring", stiffness: 220, damping: 24 }}
-  className="relative bg-white rounded-3xl shadow-md hover:shadow-xl ring-1 ring-gray-100 
-             transition-all duration-500 overflow-hidden max-w-4xl mx-auto p-0"
->
-  <div className="bg-gradient-to-r from-sky-50 via-indigo-50 to-cyan-50 text-gray-800 py-5 px-8 text-left border-b border-gray-200">
-    <h3 className="text-xl md:text-2xl font-semibold text-gray-800">
-      UK Registered Design — Grad-CAM Based Explainable AI Visualization
-    </h3>
-    <p className="text-gray-600 text-sm md:text-base mt-1">
-      Registered Design • United Kingdom Intellectual Property Office
-    </p>
-  </div>
-
-  <div className="p-8 md:p-10 bg-gradient-to-br from-white via-sky-50 to-indigo-50 text-center flex flex-col items-center space-y-5">
-    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 max-w-3xl">
-      <p className="text-gray-700 text-lg text-justify leading-relaxed">
-        The visualization and interpretability framework based on <strong>Grad-CAM and Grad-CAM++</strong>, 
-        developed for oral cancer detection research, has been recognized as a 
-        <strong>registered design under the UK Intellectual Property Office</strong>.
-        This design protects the innovative visualization interface and 
-        interpretability layout used in AI-driven medical imaging diagnostics.
-      </p>
-      <p className="mt-4 text-gray-600 text-sm">
-        Originated from the <strong>IEEE SENNET 2025 publication</strong> on explainable AI in oral cancer detection.
-      </p>
-    </div>
-    <div className="flex items-center justify-center gap-3 mt-4 text-sky-600 font-medium text-sm">
-      <i className="fas fa-shield-alt text-sky-500"></i>
-      Registered Design • Explainable AI • Clinical Visualization
+      Granted Design Patent • AI in Oncology • Diagnostic Innovation
     </div>
   </div>
 </motion.div>,
@@ -698,14 +666,14 @@ const DiceMed = () => {
                 status: "Published",
                 doi: "https://arxiv.org/abs/2510.03878",
                 pdf: "https://arxiv.org/pdf/2510.03878",
-                note: "COmputer Vision • Oral Cancer • Pattern Recognition",
+                note: "Computer Vision • Oral Cancer • Pattern Recognition",
               },
               {
                 title:"Grad-CAM & Grad-CAM++ for Explainable Oral Squamous Cell Carcinoma Detection using Deep Learning on Orthopantomograms",
                 year: 2025,
                 venue: "IEEE SENNET 2025",
                 authors: "A. B. George, S. Bathini, G. Arun",
-                type: "Design Registered (UK IPO)",
+                type: "Conference Paper",
                 status: "Published",
                 doi: "https://ieeexplore.ieee.org/document/11136014",
                 pdf: "https://ieeexplore.ieee.org/document/11136014", // if you have a PDF link you can fill it
@@ -1546,92 +1514,89 @@ const DiceMed = () => {
     </p>
 
     <div className="grid md:grid-cols-2 gap-8 justify-center mt-10">
-      {/* RSNA Challenge Card */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="bg-white rounded-2xl shadow-sm hover:shadow-md ring-1 ring-gray-100 transition-all duration-300 p-6 flex flex-col justify-between"
+      {/* ODIN Challenge Card */}
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="bg-white rounded-2xl shadow-sm hover:shadow-md ring-1 ring-gray-100 transition-all duration-300 p-6 flex flex-col items-center text-center max-w-md mx-auto"
+    >
+      <div className="w-24 h-24 rounded-full overflow-hidden ring-2 ring-indigo-200 shadow-md bg-white mb-4 flex items-center justify-center">
+        <img
+          src={miccai} // You can replace this with a MICCAI or ODIN logo if you have one
+          alt="MICCAI ODIN Challenge"
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <h3 className="text-lg font-semibold text-gray-800">
+        MICCAI 2025 — ODIN Challenge
+      </h3>
+
+      <p className="text-sm text-gray-600 mt-1">
+        Daejeon, South Korea • Computational Dentistry
+      </p>
+
+      <div className="mt-4 space-y-1 text-gray-700 text-sm">
+        <p>
+          <strong>Rank:</strong> 1<sup>st</sup> &amp; 3<sup>rd</sup> Place
+        </p>
+        <p>
+          <strong>Focus:</strong> CBCT Segmentation
+        </p>
+      </div>
+
+      <a
+        href="https://odin-workshops.org/2025/schedule.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-sky-500 text-white text-sm font-medium hover:from-blue-700 hover:to-sky-600 transition"
       >
-        <div className="flex flex-col items-center space-y-3">
-          <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-gray-200 shadow-md bg-white">
-            <img
-              src={rsnaLogo}
-              alt="RSNA Logo"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <h3 className="text-lg font-semibold text-gray-800">
-            RSNA Intracranial Aneurysm Detection Challenge 2025
-          </h3>
-
-          <div className="text-sm text-gray-600 space-y-1">
-            <p>
-              <strong>Rank:</strong> #878 / 1,147 Teams
-            </p>
-            <p>
-              <strong>Entrants:</strong> 8,262
-            </p>
-            <p>
-              <strong>Submissions:</strong> 16,298
-            </p>
-          </div>
-
-          <a
-            href="https://www.kaggle.com/competitions/rsna-intracranial-aneurysm-detection/leaderboard?search=Dicemed&tab=public"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-sky-500 text-white text-sm font-medium hover:from-blue-700 hover:to-sky-600 transition"
-          >
-            View Leaderboard <i className="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </motion.div>
-
-      {/* MICCAI ToothFairy2 Challenge Card */}
+        View Workshop <i className="fas fa-arrow-right"></i>
+      </a>
+    </motion.div>
+    {/* Smart India Hackathon Card */}
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-white rounded-2xl shadow-sm hover:shadow-md ring-1 ring-gray-100 transition-all duration-300 p-6 flex flex-col justify-between"
+        className="bg-white rounded-2xl shadow-sm hover:shadow-md ring-1 ring-gray-100 transition-all duration-300 p-6 flex flex-col items-center text-center max-w-lg mx-auto min-h-[380px]"
       >
-        <div className="flex flex-col items-center space-y-3">
-          <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-gray-200 shadow-md bg-white">
-            <img
-              src={toothlogo} // or replace with a ToothFairy2 logo if available
-              alt="ToothFairy2 Logo"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <h3 className="text-lg font-semibold text-gray-800">
-            MICCAI 2024 ToothFairy2 Challenge
-          </h3>
-
-          <div className="text-sm text-gray-600 space-y-1">
-            <p>
-              <strong>Rank:</strong> #25 / 179 Participants
-            </p>
-            <p>
-              <strong>Task:</strong> 3D CBCT Tooth &amp; Anatomy Segmentation
-            </p>
-            <p>
-              <strong>Host:</strong> Radboud University &amp; UNIMORE
-            </p>
-          </div>
-
-          <a
-            href="https://toothfairy2.grand-challenge.org/evaluation/final-test-phase-phase/leaderboard/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-sky-500 text-white text-sm font-medium hover:from-blue-700 hover:to-sky-600 transition"
-          >
-            View Challenge <i className="fas fa-arrow-right"></i>
-          </a>
+        <div className="w-24 h-24 rounded-full overflow-hidden ring-2 ring-amber-200 shadow-md bg-white mb-4 flex items-center justify-center">
+          <img
+            src={smart}
+            alt="Smart India Hackathon Logo"
+            className="w-full h-full object-contain p-2"
+          />
         </div>
+
+        <h3 className="text-lg font-semibold text-gray-800">
+          Smart India Hackathon (SIH)
+        </h3>
+
+        <p className="text-sm text-gray-600 mt-1">
+          National Innovation Challenge • India
+        </p>
+
+        <div className="mt-4 space-y-1 text-gray-700 text-sm">
+          <p>
+            <strong>Status:</strong> Participated
+          </p>
+          <p>
+            <strong>Year:</strong> 2025
+          </p>
+        </div>
+
+        <a
+          href="https://www.sih.gov.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-400 text-white text-sm font-medium hover:from-amber-600 hover:to-orange-500 transition"
+        >
+          Visit Official Site <i className="fas fa-arrow-right"></i>
+        </a>
       </motion.div>
     </div>
   </div>
