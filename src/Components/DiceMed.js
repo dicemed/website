@@ -20,14 +20,14 @@ import YohannImg from "../Assets/Yohann1.png";
 import GadhaImg from "../Assets/Gadha.png";
 import JoelImg from "../Assets/Joel.png";
 import NehaImg from "../Assets/Neha.webp";
-import NikhilImg from "../Assets/Nikhil.png"
+import NikhilImg from "../Assets/Nikhil.png";
+import sachinImg from "../Assets/Sachin.png";
 import { SiGooglescholar } from "react-icons/si";
-import miccai_first from "../Assets/miccai_first.jpg"
-import miccai_third from "../Assets/miccai_third.jpg"
-import rsnaLogo from "../Assets/rsna.png"
+import miccai_first from "../Assets/miccai_first.jpg";
+import miccai_third from "../Assets/miccai_third.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import miccai from "../Assets/miccai.png"
+import miccai from "../Assets/miccai.png";
 import smart from "../Assets/smart.png"
 
 //Localized Achievements Component
@@ -1161,6 +1161,14 @@ const DiceMed = () => {
                 linkedin:
                   "https://www.linkedin.com/in/anna-mariam-john",
                 tags: ["AI/ML"],
+              },
+              {
+                name: "Sachin S",
+                role: "Product Development Engineer",
+                image: sachinImg,
+                linkedin:
+                  "https://www.linkedin.com/in/sachin-s02/",
+                tags:  ["Mechanical Design", "Prototyping", "R&D"],
               },
               {
                 name: "Yohann Chandy",
