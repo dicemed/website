@@ -16,18 +16,20 @@ import newsImg2 from "../Assets/newsImg2.png";
 import newsImg3 from "../Assets/newsImg3.png";
 import newsImg4 from "../Assets/newsImg4.png";
 import newsImg5 from "../Assets/newsImg5.png";
+import newsImg6 from "../Assets/newsImg6.png";
+import newsImg7 from "../Assets/newsImg7.png";
 import YohannImg from "../Assets/Yohann1.png";
 import GadhaImg from "../Assets/Gadha.png";
 import JoelImg from "../Assets/Joel.png";
 import NehaImg from "../Assets/Neha.webp";
-import NikhilImg from "../Assets/Nikhil.png"
+import NikhilImg from "../Assets/Nikhil.png";
+import sachinImg from "../Assets/Sachin.png";
 import { SiGooglescholar } from "react-icons/si";
-import miccai_first from "../Assets/miccai_first.jpg"
-import miccai_third from "../Assets/miccai_third.jpg"
-import rsnaLogo from "../Assets/rsna.png"
+import miccai_first from "../Assets/miccai_first.jpg";
+import miccai_third from "../Assets/miccai_third.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import miccai from "../Assets/miccai.png"
+import miccai from "../Assets/miccai.png";
 import smart from "../Assets/smart.png"
 
 //Localized Achievements Component
@@ -615,9 +617,10 @@ const DiceMed = () => {
                 venue: "—",
                 authors: "",
                 type: "Manuscript",
-                status: "Ongoing",
+                status: "Accepted",
                 doi: "",
                 pdf: "",
+                journal:"Journal of Maxillofacial and oral surgery",
                 note: "Computer Vision • Medical Imaging",
               },
               {
@@ -770,7 +773,7 @@ const DiceMed = () => {
                               {p.year}
                             </span>
                             {/* Type Badge */}
-                            {p.type === "Design Registered (UK IPO)" ? (
+                            {p.type === "Accepted"  ? (
                               <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 text-amber-700 ring-1 ring-amber-200 px-2.5 py-1 text-xs font-medium relative group cursor-help"
                               title="Registered under the UK Intellectual Property Office (UK IPO)">
                               <i className="fas fa-certificate text-[11px]" />
@@ -808,6 +811,9 @@ const DiceMed = () => {
                           <p className="mt-2 text-sm text-gray-700">
                             {p.authors}
                           </p>
+                        )}
+                        {p.journal && (
+                          <p className="mt-2 text-sm text-gray-700">{p.journal}</p>
                         )}
  
                         {/* tags */}
@@ -1163,6 +1169,14 @@ const DiceMed = () => {
                 tags: ["AI/ML"],
               },
               {
+                name: "Sachin S",
+                role: "Product Development Engineer",
+                image: sachinImg,
+                linkedin:
+                  "https://www.linkedin.com/in/sachin-s02/",
+                tags:  ["Mechanical Design", "Prototyping", "R&D"],
+              },
+              {
                 name: "Yohann Chandy",
                 role: "CEO Intern",
                 image: YohannImg,
@@ -1302,6 +1316,28 @@ const DiceMed = () => {
 
           {(() => {
             const news = [
+            {
+              id: "miccai-stsr-2025-task1",
+              title: "DiceMed Secures 3rd Place in MICCAI STSR 2025 — Teeth & Pulp Root Canal Segmentation",
+              date: "2025-10-25",
+              location: "Daejeon, South Korea",
+              summary:"Proud to announce that DiceMed achieved **3rd place** in Task 1 of the MICCAI STSR 2025 Challenge — focused on semi-supervised segmentation of teeth and pulp root canals in 3D CBCT scans. The task required precise delineation of permanent teeth (including wisdom teeth) and their root pulp canals, using only 30 labeled and 300 unlabeled CBCT volumes. Our nnU-Net-based pipeline, optimized for high Dice and NSD scores, delivered robust generalization across varying scan qualities, earning top-tier accuracy and efficiency metrics among global participants.",
+              image: newsImg6, // ← use a relevant new image
+              tags: ["Competition","MICCAI 2025","STSR 2025", "3D Segmentation", "CBCT", "Dental AI",],
+              ctaLabel: "View Challenge Page",
+              ctaHref: "https://www.codabench.org/competitions/6468/#/results-tab",
+            },
+            {
+              id: "miccai-stsr-2025-task2",
+              title: "DiceMed Wins 1st Place in MICCAI STSR 2025 — Crown-Root Registration (CBCT × IOS)",
+              date: "2025-10-25",
+              location: "Daejeon, South Korea",
+              summary:"DiceMed clinched **1st place** in Task 2 of the MICCAI STSR 2025 Challenge — the Crown and Root Registration task for intraoral (IOS) and CBCT scans. Our solution leveraged a PointNetLK-based rigid registration module, achieving sub-millimeter alignment accuracy and efficient inference times. This work bridges the gap between 3D radiographic and surface-scan data, enabling clinically reliable multimodal fusion for digital dentistry workflows. Huge thanks to the STSR 2025 organizers and the ODIN Workshop at MICCAI for this recognition.",
+              image: newsImg7, // ← use another relevant image
+              tags: ["Award","MICCAI 2025", "STSR 2025","Registration", "CBCT", "PointNetLK", "Dental Imaging",],
+              ctaLabel: "View Official Results",
+              ctaHref: "https://www.codabench.org/competitions/6470/#/results-tab",
+            },
             {
               id: "oral-cancer-ai-ida2025",
               title:"Showcasing AI-Powered Oral Cancer Detection at IDA Global Conclave 2025",
