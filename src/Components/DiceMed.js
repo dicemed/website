@@ -18,6 +18,7 @@ import newsImg4 from "../Assets/newsImg4.png";
 import newsImg5 from "../Assets/newsImg5.png";
 import newsImg6 from "../Assets/newsImg6.png";
 import newsImg7 from "../Assets/newsImg7.png";
+import newsImg8 from "../Assets/ieee.png"
 import YohannImg from "../Assets/Yohann1.png";
 import GadhaImg from "../Assets/Gadha.png";
 import JoelImg from "../Assets/Joel.png";
@@ -25,8 +26,8 @@ import NehaImg from "../Assets/Neha.webp";
 import NikhilImg from "../Assets/Nikhil.png";
 import sachinImg from "../Assets/Sachin.png";
 import { SiGooglescholar } from "react-icons/si";
-import miccai_first from "../Assets/miccai_first.jpg";
-import miccai_third from "../Assets/miccai_third.jpg";
+import miccai_first from "../Assets/miccai_first.png";
+import miccai_third from "../Assets/miccai_third.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import miccai from "../Assets/miccai.png";
@@ -1317,6 +1318,19 @@ const DiceMed = () => {
           {(() => {
             const news = [
             {
+              id: "ieee-icrm-2025-smartorai",
+              title: "Presented SmartOR-AI at IEEE International Conference on Robotics & Mechatronics (ICRM 2025)",
+              date: "2025-11-08",
+              location: "Amritapuri, Kollam, India",
+              summary:
+                "DiceMed had the privilege of presenting its research on SmartOR-AI at the IEEE International Conference on Robotics & Mechatronics (ICRM 2025). The paper, titled “SmartOR-AI: An Intelligent Predictive Analytics and Decision Support System for Anesthesia,” introduces a modular AI framework designed to enhance perioperative safety through dynamic anesthetic dosage prediction, real-time intraoperative risk monitoring, and postoperative complication forecasting. The system demonstrated promising validation results, highlighting its potential to support next-generation smart operating rooms and data-driven clinical workflows.",
+              image: newsImg8,
+              tags: ["Conference","IEEE ICRM 2025","SmartOR-AI","Predictive Analytics","Robotics & Mechatronics"],
+              ctaLabel: "View Conference Paper",
+              ctaHref: "https://drive.google.com/file/d/1DQzv_asbu1d4ftNZx3se9vKxnQzCd83F/view?usp=sharing" 
+            },
+
+            {
               id: "miccai-stsr-2025-task1",
               title: "DiceMed Secures 3rd Place in MICCAI STSR 2025 — Teeth & Pulp Root Canal Segmentation",
               date: "2025-10-25",
@@ -1560,7 +1574,7 @@ const DiceMed = () => {
     >
       <div className="w-24 h-24 rounded-full overflow-hidden ring-2 ring-indigo-200 shadow-md bg-white mb-4 flex items-center justify-center">
         <img
-          src={miccai} // You can replace this with a MICCAI or ODIN logo if you have one
+          src={miccai} 
           alt="MICCAI ODIN Challenge"
           className="w-full h-full object-cover"
         />
@@ -1592,48 +1606,37 @@ const DiceMed = () => {
         View Workshop <i className="fas fa-arrow-right"></i>
       </a>
     </motion.div>
-    {/* Smart India Hackathon Card */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="bg-white rounded-2xl shadow-sm hover:shadow-md ring-1 ring-gray-100 transition-all duration-300 p-6 flex flex-col items-center text-center max-w-lg mx-auto min-h-[380px]"
-      >
-        <div className="w-24 h-24 rounded-full overflow-hidden ring-2 ring-amber-200 shadow-md bg-white mb-4 flex items-center justify-center">
-          <img
-            src={smart}
-            alt="Smart India Hackathon Logo"
-            className="w-full h-full object-contain p-2"
-          />
-        </div>
+    {/* Future Competitions Placeholder */}
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="bg-gradient-to-br from-indigo-50 via-white to-sky-50 rounded-2xl shadow-md hover:shadow-lg ring-1 ring-indigo-100 transition-all duration-300 p-6 flex flex-col items-center text-center max-w-md mx-auto"
+    >
+      {/* Animated Icon */}
+      <div className="w-24 h-24 rounded-full flex items-center justify-center 
+                  bg-gradient-to-br from-sky-100 to-indigo-100 
+                  text-indigo-500 text-4xl mb-4 shadow-inner
+                  animate-pulse">
+          <i className="fas fa-hourglass-half"></i>
+      </div>
 
-        <h3 className="text-lg font-semibold text-gray-800">
-          Smart India Hackathon (SIH)
-        </h3>
+      <h3 className="text-xl font-semibold text-gray-800">
+          More Competitions Coming Soon
+      </h3>
 
-        <p className="text-sm text-gray-600 mt-1">
-          National Innovation Challenge • India
-        </p>
+      <p className="text-sm text-gray-600 mt-2 max-w-xs leading-relaxed">
+          Our research teams are preparing for major global AI & medical imaging challenges.
+          Stay tuned for exciting updates.
+      </p>
 
-        <div className="mt-4 space-y-1 text-gray-700 text-sm">
-          <p>
-            <strong>Status:</strong> Participated
-          </p>
-          <p>
-            <strong>Year:</strong> 2025
-          </p>
-        </div>
+      <div className="mt-5 text-indigo-600 text-sm font-medium flex items-center gap-2">
+        <span>Stay Tuned</span>
+          <i className="fas fa-arrow-right-long"></i>
+      </div>
+    </motion.div>
 
-        <a
-          href="https://www.sih.gov.in/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-400 text-white text-sm font-medium hover:from-amber-600 hover:to-orange-500 transition"
-        >
-          Visit Official Site <i className="fas fa-arrow-right"></i>
-        </a>
-      </motion.div>
     </div>
   </div>
 </section>
