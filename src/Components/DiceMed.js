@@ -32,6 +32,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import miccai from "../Assets/miccai.png";
 import smart from "../Assets/smart.png"
+import paper from "../Assets/Best paper.jpg"
+import accepted from "../Assets/accepted.jpg"
 
 //Localized Achievements Component
 const AchievementsCarousel = () => {
@@ -40,6 +42,59 @@ const AchievementsCarousel = () => {
   const [paused, setPaused] = useState(false);
 
   const cards = [
+    <motion.div
+  whileHover={{ y: -6, scale: 1.01 }}
+  transition={{ type: "spring", stiffness: 220, damping: 24 }}
+  className="relative bg-white rounded-3xl shadow-md hover:shadow-xl ring-1 ring-gray-100 
+             transition-all duration-500 overflow-hidden max-w-5xl mx-auto p-0"
+>
+  {/* Header */}
+  <div className="bg-gradient-to-r from-emerald-100 via-teal-50 to-cyan-100 
+                  text-gray-800 py-5 px-8 text-left border-b border-gray-200">
+    <h3 className="text-xl md:text-2xl font-semibold">
+      AIHC Conference 2025 — Best Paper Award
+    </h3>
+    <p className="text-gray-600 text-sm md:text-base mt-1">
+      Track: Computer Vision & Artificial Intelligence
+    </p>
+  </div>
+
+  {/* Content */}
+  <div className="p-8 md:p-10 bg-gradient-to-br from-emerald-50 via-white to-cyan-50 
+                  text-center flex flex-col items-center space-y-6">
+    <p className="text-gray-700 text-lg text-justify leading-relaxed max-w-3xl">
+      DiceMed received the <strong>Best Paper Award</strong> at the 
+      <strong> AIHC Conference 2025</strong> for our work on automated CBCT-based
+      segmentation of odontogenic sinus pathologies.  
+      The study established a clinically significant spatial correlation between
+      <em> periapical lesions</em> and <em>sinus membrane thickening</em>,
+      reinforcing the role of AI-driven maxillofacial imaging in diagnostic
+      decision support.
+    </p>
+
+    {/* PDF CTA */}
+    <a
+      href="https://drive.google.com/file/d/1IwqZeV2j7VMBoM_JVcFSpyYdH6-uu00B/view?usp=sharing"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg 
+                 bg-gradient-to-r from-emerald-600 to-teal-500 
+                 text-white text-sm font-semibold shadow-md 
+                 hover:from-emerald-700 hover:to-teal-600 
+                 transition-all duration-300"
+    >
+      <i className="fas fa-file-pdf"></i>
+      View Best Paper (PDF)
+    </a>
+
+    {/* Footer badge */}
+    <div className="flex justify-center items-center gap-3 text-emerald-700 font-medium text-sm">
+      <i className="fas fa-award text-emerald-600"></i>
+      Best Paper • Dental CBCT • Medical Imaging AI
+    </div>
+  </div>
+</motion.div>,
+
     // MICCAI 2025 CARD
     <motion.div
       whileHover={{ y: -6, scale: 1.01 }}
@@ -99,6 +154,7 @@ const AchievementsCarousel = () => {
       </div>
     </motion.div>,
 
+    
     // PATENT CARD — UK Design Patent
 <motion.div
   whileHover={{ y: -6, scale: 1.01 }}
@@ -611,6 +667,55 @@ const DiceMed = () => {
           {/* eslint-disable-next-line */}{/* Add more publications as needed */}
           {(() => {
             const publications = [
+              {
+                title:"Enhanced ICCMS Radiographic Staging of Dental Caries Using Localized Deep Learning on Periapical Images",
+                year: 2025,
+                venue: "AIHC Conference",
+                authors: "",
+                type: "Conference Paper",
+                status: "Accepted",
+                doi: "",
+                pdf: "",
+                note: "Computer Vision • Dental Imaging • Deep Learning"
+              },
+
+              {
+                title:"High-Precision Automated Multi-Structure Segmentation in Dental CBCT using nnU-Net with Focused Interactive Refinement of the Inferior Alveolar Canal",
+                year: 2025,
+                venue: "AIHC Conference",
+                authors: "",
+                type: "Conference Paper",
+                status: "Accepted",
+                doi: "",
+                pdf: "",
+                note: "CBCT • nnU-Net • Interactive Segmentation • Dental AI"
+              },
+
+              {
+                title: "Automated CBCT Segmentation of Odontogenic Sinus Pathologies Using nnU-Net: Clinical Correlation Between Periapical Lesions and Sinus Membrane Thickening",
+                year: 2025,
+                venue: "AIHC Conference",
+                authors: "",
+                type: "Conference Paper",
+                status: "Accepted",
+                doi: "",
+                pdf: "",
+                note: "CBCT • Sinus Pathology • Medical Imaging AI"
+              },
+
+              {
+                title:"DentalQuest: An Adaptive Learning System for Dental Education using Knowledge Graph and Retrieval-Augmented Generation",
+                year: 2025,
+                venue: "AIHC Conference",
+                authors: "",
+                type: "Conference Paper",
+                status: "Accepted",
+                doi: "",
+                pdf: "",
+                note: "AI Education • Knowledge Graph • RAG • Natural Language Processing"
+              },
+
+
               {
                 title:
                   "nnU-Net-Based Automated Nasopalatine Nerve Segmentation for Maxillofacial Surgery",
@@ -1318,6 +1423,51 @@ const DiceMed = () => {
           {(() => {
             const news = [
             {
+              id: "aihc-2025-best-paper",
+              title: "DiceMed Wins Best Paper Award at AIHC 2025",
+              date: "2025-12-12",
+              location: "AIHC Conference",
+              summary:"DiceMed received the Best Paper Award at the AIHC 2025 Conference under the Computer Vision & AI track for its work on automated CBCT-based segmentation of odontogenic sinus pathologies. The award-winning paper presents a deep learning pipeline using nnU-Net to segment key maxillofacial structures and analyze the spatial correlation between periapical lesions and sinus membrane thickening, demonstrating clinically meaningful insights and improved diagnostic efficiency. ",
+              image: paper,
+              tags: ["Award", "AIHC 2025", "Best Paper", "Dental AI"],
+              ctaLabel: "",
+              ctaHref: "#publications"
+            },
+            {
+              id: "aihc-2025-accepted-papers",
+              title: "Four DiceMed Papers Accepted at AIHC 2025 Across AI Tracks",
+              date: "2025-12-11",
+              location: "AIHC Conference",
+              summary: "Four research papers authored by DiceMed were accepted at the AIHC 2025 Conference, reflecting the organization’s contributions across the Computer Vision & AI and AI & Natural Language Processing tracks. The accepted works address automated radiographic staging of dental caries, high-precision multi-structure segmentation in dental CBCT, deep learning–based analysis of odontogenic sinus pathologies, and AI-driven adaptive learning systems for dental education.",
+              image: accepted,
+              tags: ["AIHC 2025", "Accepted Papers", "Dental AI", "Computer Vision & AI", "AI & NLP"],
+              ctaLabel: "",
+              ctaHref: "#publications",
+              papers: [
+                  {
+                    id: 178,
+                    title: "Enhanced ICCMS Radiographic Staging of Dental Caries Using Localized Deep Learning on Periapical Images",
+                    track: "Computer Vision & AI"
+                  },
+                  {
+                    id: 179,
+                    title: "High-Precision Automated Multi-Structure Segmentation in Dental CBCT Using nnU-Net with Focused Interactive Refinement of the Inferior Alveolar Canal",
+                    track: "Computer Vision & AI"
+                  },
+                  {
+                    id: 181,
+                    title: "Automated CBCT Segmentation of Odontogenic Sinus Pathologies Using nnU-Net: Clinical Correlation Between Periapical Lesions and Sinus Membrane Thickening",
+                    track: "Computer Vision & AI"
+                  },
+                  {
+                    id: 184,
+                    title: "DentalQuest: An Adaptive Learning System for Dental Education Using Knowledge Graph and Retrieval-Augmented Generation",
+                    track: "AI & Natural Language Processing"
+                  }
+                ]
+            },
+
+            {
               id: "ieee-icrm-2025-smartorai",
               title: "Presented SmartOR-AI at IEEE International Conference on Robotics & Mechatronics (ICRM 2025)",
               date: "2025-11-08",
@@ -1336,7 +1486,7 @@ const DiceMed = () => {
               date: "2025-10-25",
               location: "Daejeon, South Korea",
               summary:"Proud to announce that DiceMed achieved **3rd place** in Task 1 of the MICCAI STSR 2025 Challenge — focused on semi-supervised segmentation of teeth and pulp root canals in 3D CBCT scans. The task required precise delineation of permanent teeth (including wisdom teeth) and their root pulp canals, using only 30 labeled and 300 unlabeled CBCT volumes. Our nnU-Net-based pipeline, optimized for high Dice and NSD scores, delivered robust generalization across varying scan qualities, earning top-tier accuracy and efficiency metrics among global participants.",
-              image: newsImg6, // ← use a relevant new image
+              image: newsImg6, 
               tags: ["Competition","MICCAI 2025","STSR 2025", "3D Segmentation", "CBCT", "Dental AI",],
               ctaLabel: "View Challenge Page",
               ctaHref: "https://www.codabench.org/competitions/6468/#/results-tab",
@@ -1347,7 +1497,7 @@ const DiceMed = () => {
               date: "2025-10-25",
               location: "Daejeon, South Korea",
               summary:"DiceMed clinched **1st place** in Task 2 of the MICCAI STSR 2025 Challenge — the Crown and Root Registration task for intraoral (IOS) and CBCT scans. Our solution leveraged a PointNetLK-based rigid registration module, achieving sub-millimeter alignment accuracy and efficient inference times. This work bridges the gap between 3D radiographic and surface-scan data, enabling clinically reliable multimodal fusion for digital dentistry workflows. Huge thanks to the STSR 2025 organizers and the ODIN Workshop at MICCAI for this recognition.",
-              image: newsImg7, // ← use another relevant image
+              image: newsImg7, 
               tags: ["Award","MICCAI 2025", "STSR 2025","Registration", "CBCT", "PointNetLK", "Dental Imaging",],
               ctaLabel: "View Official Results",
               ctaHref: "https://www.codabench.org/competitions/6470/#/results-tab",
