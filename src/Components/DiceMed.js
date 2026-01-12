@@ -482,18 +482,21 @@ const DiceMed = () => {
     ${name}`;
 
     openMailClient({
-      to: "drajo_george@DiceMed.in",
+      to: "drajo_george@dicemed.in",
       subject: `Contact Request from ${name}`,
       body: emailBody,
     });
   };
 
   const openMailClient = ({ to, subject, body }) => {
-    const mailtoLink = `mailto:${to}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
-  };
+  const displayName = "Dr. Ajo Babu George";
+  const mailtoLink = `mailto:${encodeURIComponent(
+    `"${displayName}" <${to}>`
+  )}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  window.location.href = mailtoLink;
+};
+
 
   return (
     <div className="font-sans text-gray-800">
@@ -570,7 +573,7 @@ const DiceMed = () => {
                               <SiGooglescholar size={20} />
                             </a>
                             <a
-                              href="mailto:drajo_george@DiceMed.in"
+                              href="mailto:drajo_george@dicemed.in"
                               className="text-red-600 hover:text-red-800 transition"
                               aria-label="Email"
                             >
@@ -1838,10 +1841,10 @@ const DiceMed = () => {
                         Email
                       </div>
                       <a
-                        href="mailto:drajo_george@DiceMed.in"
+                        href="mailto:drajo_george@dicemed.in"
                         className="font-medium hover:underline text-white"
                       >
-                        drajo_george@DiceMed.in
+                        drajo_george@dicemed.in
                       </a>
                     </div>
                   </div>
@@ -2041,12 +2044,33 @@ const DiceMed = () => {
                     <i className="fab fa-github" />
                   </a>
                   <a
-                    href="mailto:drajo_george@DiceMed.in"
+                    href="mailto:drajo_george@dicemed.in"
                     aria-label="Email DiceMed"
                     className="inline-flex w-9 h-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition"
                     title="Email"
                   >
                     <i className="fas fa-envelope" />
+                  </a>
+                  {/* Instagram */}
+                  <a
+                    href="https://www.instagram.com/dicemed_labs/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="DiceMed on Instagram"
+                    className="inline-flex w-9 h-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition"
+                    title="Instagram"
+                  >
+                    <i className="fab fa-instagram" />
+                  </a>
+
+                  {/* Twitter / X */}
+                  <a href="https://x.com/DiceMed_Lab/status/2010267203065823593?s=20"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="DiceMed on X"
+                  className="inline-flex w-9 h-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition"
+                  title="X (Twitter)"
+                  ><i className="fab fa-x-twitter" />
                   </a>
                 </div>
               </div>
@@ -2106,10 +2130,10 @@ const DiceMed = () => {
                   <li className="flex items-start gap-3">
                     <i className="fas fa-envelope mt-0.5 text-slate-400" />
                     <a
-                      href="mailto:drajo_george@DiceMed.in"
+                      href="mailto:drajo_george@dicemed.in"
                       className="hover:text-white transition"
                     >
-                      drajo_george@DiceMed.in
+                      drajo_george@dicemed.in
                     </a>
                   </li>
                   <li className="flex items-start gap-3">
@@ -2137,7 +2161,7 @@ const DiceMed = () => {
                   onSubmit={(e) => {
                     e.preventDefault();
                     window.location.href =
-                      "mailto:drajo_george@DiceMed.in?subject=Subscribe%20to%20updates&body=Hi%20DiceMed%2C%20please%20subscribe%20me%20to%20updates.";
+                      "mailto:drajo_george@dicemed.in?subject=Subscribe%20to%20updates&body=Hi%20DiceMed%2C%20please%20subscribe%20me%20to%20updates.";
                   }}
                   className="mt-4 flex items-center gap-2"
                 >
