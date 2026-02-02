@@ -1,6 +1,21 @@
 import React, { useState, useRef, useMemo } from "react";
 import { Plus, Trash2, Download, Eye, Upload } from "lucide-react";
 
+
+ // Predefined medicines list
+  const predefinedMedicines = [
+    "Paracetamol 500mg",
+    "Ibuprofen 400mg",
+    "Amoxicillin 500mg",
+    "Azithromycin 250mg",
+    "Omeprazole 20mg",
+    "Metformin 500mg",
+    "Amlodipine 5mg",
+    "Atorvastatin 10mg",
+    "Aspirin 75mg",
+    "Cetirizine 10mg",
+  ];
+
 const PrescriptionGenerator = () => {
   const [formData, setFormData] = useState({
     patientName: "",
@@ -36,19 +51,7 @@ const PrescriptionGenerator = () => {
   const signatureRef = useRef();
   const sealRef = useRef();
 
-  // Predefined medicines list
-  const predefinedMedicines = [
-    "Paracetamol 500mg",
-    "Ibuprofen 400mg",
-    "Amoxicillin 500mg",
-    "Azithromycin 250mg",
-    "Omeprazole 20mg",
-    "Metformin 500mg",
-    "Amlodipine 5mg",
-    "Atorvastatin 10mg",
-    "Aspirin 75mg",
-    "Cetirizine 10mg",
-  ];
+ 
 
   const handleInputChange = (field, value) => {
     if (field.includes(".")) {
@@ -200,7 +203,7 @@ const PrescriptionGenerator = () => {
     const q = query.toLowerCase().trim();
     if (!q) return predefinedMedicines;
     return predefinedMedicines.filter((m) => m.toLowerCase().includes(q));
-  }, [query, predefinedMedicines]);
+  }, [query]);
 
   const PrescriptionPreview = () => (
     <div className="bg-white p-8 max-w-4xl mx-auto" id="prescription-preview">
