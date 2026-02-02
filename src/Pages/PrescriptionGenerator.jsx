@@ -200,7 +200,7 @@ const PrescriptionGenerator = () => {
     const q = query.toLowerCase().trim();
     if (!q) return predefinedMedicines;
     return predefinedMedicines.filter((m) => m.toLowerCase().includes(q));
-  }, [query], [predefinedMedicines]);
+  }, [query, predefinedMedicines]);
 
   const PrescriptionPreview = () => (
     <div className="bg-white p-8 max-w-4xl mx-auto" id="prescription-preview">
