@@ -401,7 +401,7 @@ const core = [
               
             ];
 
-            {/* Research Team */}
+            // {/* Research Team */}
             const research = [
               {
                 name: "Dr. Abiya Mariam George",
@@ -461,7 +461,7 @@ const DiceMed = () => {
     message: "",
   });
 
-  {/*About Carousel */}
+  // {/*About Carousel */}
   const aboutSlides = [
     {
       id: "profile",
