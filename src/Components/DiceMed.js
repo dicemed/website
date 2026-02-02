@@ -31,7 +31,7 @@ import miccai_third from "../Assets/miccai_third.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import miccai from "../Assets/miccai.png";
-import smart from "../Assets/smart.png"
+// import smart from "../Assets/smart.png"
 import paper from "../Assets/Best paper.jpg"
 import accepted from "../Assets/accepted.jpg"
 
@@ -318,7 +318,137 @@ const AchievementsCarousel = () => {
     </div>
   );
 };
+const core = [
+              {
+                name: "Dr. Kunal Agarwal",
+                role: "Maxillofacial Radiologist",
+                image: drImage,
+                linkedin:
+                  "https://www.linkedin.com/in/dr-kunal-agarwal-a50812211",
+                tags: ["Clinical", "Imaging"],
+              },
+              {
+                name: "Dr. Mitu Singhal",
+                role: "Clinical Advisor",
+                image: mituImage,
+                linkedin: "#",
+                tags: ["Advisor"],
+              },
+              {
+                name: "Deepanshu Arya",
+                role: "Software Developer",
+                image: deepanshuImage,
+                linkedin:
+                  "https://www.linkedin.com/in/deepanshuarya2024",
+                tags: ["Full-stack", "DevOps"],
+              },
+              {
+                name: "Manu Govind",
+                role: "Robotics Expert Advisor",
+                image: manuImage,
+                linkedin:
+                  "https://www.linkedin.com/in/manu-govind-v",
+                tags: ["Robotics"],
+              },
+              {
+                name: "Sadhvik Bathini",
+                role: "Neural Network Advisor",
+                image: sadhvikImage,
+                linkedin:
+                  "https://www.linkedin.com/in/sadhvikbathini",
+                tags: ["Deep Learning"],
+              },
+              {
+                name: "Anna Mariam John",
+                role: "ML Research Engineer-II",
+                image: annaImage,
+                linkedin:
+                  "https://www.linkedin.com/in/anna-mariam-john",
+                tags: ["AI/ML"],
+              },
+              {
+                name: "Sachin S",
+                role: "Product Development Engineer",
+                image: sachinImg,
+                linkedin:
+                  "https://www.linkedin.com/in/sachin-s02/",
+                tags:  ["Mechanical Design", "Prototyping", "R&D"],
+              },
+              {
+                name: "Yohann Chandy",
+                role: "CEO Intern",
+                image: YohannImg,
+                linkedin:
+                  "https://www.linkedin.com/in/yohannchandy",
+                tags: ["Leadership", "Strategy", "Innovation"],
+              },
+              {
+                name: "Gadha Lekshmi P",
+                role: "Computer Vision Expert",
+                image: GadhaImg,
+                linkedin:
+                  "https://www.linkedin.com/in/gadha-lekshmi-p-848741268/",
+                tags: ["Deep Learning", "Medical Imaging", "AI Diagnostics"],
+              },
+              {
+                name: "Neha Ann Binoy",
+                role: "Jr. Software Developer",
+                image: NehaImg,
+                linkedin:
+                  "https://www.linkedin.com/in/neha-ann-binoy-nab/",
+                tags: ["Full-Stack", "AI Integration"],
+              },
+              
+            ];
 
+            {/* Research Team */}
+            const research = [
+              {
+                name: "Dr. Abiya Mariam George",
+                role: "Clinical Advisor",
+                image: abiyaImage,
+                linkedin: "",
+                tags: ["Clinical"],
+              },
+              {
+                name: "Dr. Roshan Reji",
+                role: "Clinical Advisor",
+                image: rejiImage,
+                linkedin: "",
+                tags: ["Clinical"],
+              },
+              {
+                name: "Athul",
+                role: "ML Intern",
+                image: athulImage,
+                linkedin:
+                  "https://www.linkedin.com/in/athul-anoop-a85068281/",
+                tags: ["Intern"],
+              },
+              {
+                name: "Nikhil K",
+                role: "Mechanical Engineering Trainee",
+                image: NikhilImg,
+                linkedin:
+                  "https://www.linkedin.com/in/nikhil-k-a09377235/",
+                tags: [""],
+              },
+              {
+                name: "Pranav",
+                role: "ML Intern",
+                image: pranavImage,
+                linkedin: "http://www.linkedin.com/in/s-pranav-s",
+                tags: ["Intern"],
+              },
+              {
+                name: "Joel Varghese Oommen",
+                role: "Research and Development Intern",
+                image: JoelImg,
+                linkedin:
+                  "https://www.linkedin.com/in/joel-oommen-63bb89271/",
+                tags: ["Cognitive Healthcare","AI Innovation"],
+              },
+            ];
 
 const DiceMed = () => {
   // dont ever remove below comment
@@ -1203,8 +1333,8 @@ const DiceMed = () => {
 };
 
 
-            {/* Clinical Team */}
-            {/* <h3 className="text-3xl font-semibold">Clinical Team</h3>
+            // {/* Clinical Team */}
+            /* <h3 className="text-3xl font-semibold">Clinical Team</h3>
     <hr className='xl:mb-3 mb-4 mt-1 xl:w-1/6 w-2/6 mx-auto'></hr>
     <div className="flex flex-col md:flex-row justify-center gap-10 mb-16">
       {[
@@ -1226,140 +1356,9 @@ const DiceMed = () => {
           <p className="text-gray-600">{member.role}</p>
         </div>
       ))}
-    </div> */}
-
-            {/* Core Team */}
-            const core = [
-              {
-                name: "Dr. Kunal Agarwal",
-                role: "Maxillofacial Radiologist",
-                image: drImage,
-                linkedin:
-                  "https://www.linkedin.com/in/dr-kunal-agarwal-a50812211",
-                tags: ["Clinical", "Imaging"],
-              },
-              {
-                name: "Dr. Mitu Singhal",
-                role: "Clinical Advisor",
-                image: mituImage,
-                linkedin: "#",
-                tags: ["Advisor"],
-              },
-              {
-                name: "Deepanshu Arya",
-                role: "Software Developer",
-                image: deepanshuImage,
-                linkedin:
-                  "https://www.linkedin.com/in/deepanshuarya2024",
-                tags: ["Full-stack", "DevOps"],
-              },
-              {
-                name: "Manu Govind",
-                role: "Robotics Expert Advisor",
-                image: manuImage,
-                linkedin:
-                  "https://www.linkedin.com/in/manu-govind-v",
-                tags: ["Robotics"],
-              },
-              {
-                name: "Sadhvik Bathini",
-                role: "Neural Network Advisor",
-                image: sadhvikImage,
-                linkedin:
-                  "https://www.linkedin.com/in/sadhvikbathini",
-                tags: ["Deep Learning"],
-              },
-              {
-                name: "Anna Mariam John",
-                role: "ML Research Engineer-II",
-                image: annaImage,
-                linkedin:
-                  "https://www.linkedin.com/in/anna-mariam-john",
-                tags: ["AI/ML"],
-              },
-              {
-                name: "Sachin S",
-                role: "Product Development Engineer",
-                image: sachinImg,
-                linkedin:
-                  "https://www.linkedin.com/in/sachin-s02/",
-                tags:  ["Mechanical Design", "Prototyping", "R&D"],
-              },
-              {
-                name: "Yohann Chandy",
-                role: "CEO Intern",
-                image: YohannImg,
-                linkedin:
-                  "https://www.linkedin.com/in/yohannchandy",
-                tags: ["Leadership", "Strategy", "Innovation"],
-              },
-              {
-                name: "Gadha Lekshmi P",
-                role: "Computer Vision Expert",
-                image: GadhaImg,
-                linkedin:
-                  "https://www.linkedin.com/in/gadha-lekshmi-p-848741268/",
-                tags: ["Deep Learning", "Medical Imaging", "AI Diagnostics"],
-              },
-              {
-                name: "Neha Ann Binoy",
-                role: "Jr. Software Developer",
-                image: NehaImg,
-                linkedin:
-                  "https://www.linkedin.com/in/neha-ann-binoy-nab/",
-                tags: ["Full-Stack", "AI Integration"],
-              },
-              
-            ];
-
-            {/* Research Team */}
-            const research = [
-              {
-                name: "Dr. Abiya Mariam George",
-                role: "Clinical Advisor",
-                image: abiyaImage,
-                linkedin: "",
-                tags: ["Clinical"],
-              },
-              {
-                name: "Dr. Roshan Reji",
-                role: "Clinical Advisor",
-                image: rejiImage,
-                linkedin: "",
-                tags: ["Clinical"],
-              },
-              {
-                name: "Athul",
-                role: "ML Intern",
-                image: athulImage,
-                linkedin:
-                  "https://www.linkedin.com/in/athul-anoop-a85068281/",
-                tags: ["Intern"],
-              },
-              {
-                name: "Nikhil K",
-                role: "Mechanical Engineering Trainee",
-                image: NikhilImg,
-                linkedin:
-                  "https://www.linkedin.com/in/nikhil-k-a09377235/",
-                tags: [""],
-              },
-              {
-                name: "Pranav",
-                role: "ML Intern",
-                image: pranavImage,
-                linkedin: "http://www.linkedin.com/in/s-pranav-s",
-                tags: ["Intern"],
-              },
-              {
-                name: "Joel Varghese Oommen",
-                role: "Research and Development Intern",
-                image: JoelImg,
-                linkedin:
-                  "https://www.linkedin.com/in/joel-oommen-63bb89271/",
-                tags: ["Cognitive Healthcare","AI Innovation"],
-              },
-            ];
+    </div> */
+            // {/* Core Team */}
+            
 
             return (
               <>
@@ -2209,11 +2208,11 @@ const DiceMed = () => {
                 © {new Date().getFullYear()} DiceMed. All rights reserved.
               </div>
               <div className="flex items-center gap-4">
-                <a href="#" className="hover:text-white transition">
+                <a href="/" className="hover:text-white transition">
                   Privacy
                 </a>
                 <span className="opacity-40">•</span>
-                <a href="#" className="hover:text-white transition">
+                <a href="/" className="hover:text-white transition">
                   Terms
                 </a>
                 <span className="opacity-40">•</span>
