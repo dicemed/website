@@ -854,11 +854,11 @@ const DiceMed = () => {
                   "nnU-Net-Based Automated Nasopalatine Nerve Segmentation for Maxillofacial Surgery",
                 year: 2025,
                 venue: "—",
-                authors: "",
-                type: "Manuscript",
-                status: "Accepted",
-                doi: "",
-                pdf: "",
+                authors: "G. Arun, M. G. Vazhunnavar, A. B. George, K. Agarwal",
+                type: "Preprint",
+                status: "Published",
+                doi: "https://link.springer.com/article/10.1007/s12663-025-02837-1",
+                pdf: "https://drive.google.com/file/d/1em1RqoS3pCY8E7AGUBO6gSSJeE368ue5/view?usp=drive_link",
                 journal:"Journal of Maxillofacial and oral surgery",
                 note: "Computer Vision • Medical Imaging",
               },
@@ -1052,7 +1052,8 @@ const DiceMed = () => {
                           </p>
                         )}
                         {p.journal && (
-                          <p className="mt-2 text-sm text-gray-700">{p.journal}</p>
+                          <p className="mt-2 inline-block bg-gray-50 px-2 py-1 text-sm text-gray-800">{p.journal}
+                            </p>
                         )}
  
                         {/* tags */}
