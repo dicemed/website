@@ -25,6 +25,8 @@ import JoelImg from "../Assets/Joel.png";
 import NehaImg from "../Assets/Neha.webp";
 import NikhilImg from "../Assets/Nikhil.png";
 import sachinImg from "../Assets/Sachin.png";
+import newsImg9 from "../Assets/anesthetic.jpg"
+import newsImg10 from "../Assets/nnu.png"
 import { SiGooglescholar } from "react-icons/si";
 import miccai_first from "../Assets/miccai_first.png";
 import miccai_third from "../Assets/miccai_third.png";
@@ -627,6 +629,39 @@ const DiceMed = () => {
   window.location.href = mailtoLink;
 };
 
+const formatAuthorsAPA = (authors) => {
+  if (!authors) return "";
+
+  return authors
+    .split(",")
+    .map((author) => {
+      const parts = author.trim().split(" ");
+      const last = parts[parts.length - 1];
+      const initials = parts
+        .slice(0, -1)
+        .map((n) => n[0] + ".")
+        .join(" ");
+      return `${last}, ${initials}`;
+    })
+    .join(", ");
+};
+
+const generateAPA = (paper) => {
+  const authors = formatAuthorsAPA(paper.authors);
+  const year = paper.year ? `(${paper.year}).` : "";
+  const title = paper.title;
+  const venue = paper.journal || paper.venue || "";
+  const doi = paper.doi ? ` ${paper.doi}` : "";
+
+  return `${authors} ${year} ${title}. ${venue}.${doi}`;
+};
+
+const copyAPA = (paper) => {
+  const citation = generateAPA(paper);
+  navigator.clipboard.writeText(citation);
+  alert("APA citation copied!");
+};
+
 
   return (
     <div className="font-sans text-gray-800">
@@ -800,6 +835,17 @@ const DiceMed = () => {
           {/* eslint-disable-next-line */}{/* Add more publications as needed */}
           {(() => {
             const publications = [
+              {
+                title: "SmartOR-AI: An Intelligent Predictive Analytics and Decision Support System for Anesthesia Equipped with Perioperative Risk Management",
+                year: 2025,
+                venue: "IEEE ICRM 2025",
+                authors: "A. B. George, A. M. John, D. Vinod, R. Reji",
+                type: "Conference Paper",
+                status: "Published",
+                doi: "https://ieeexplore.ieee.org/document/11349054",
+                pdf: "https://ieeexplore.ieee.org/document/11349054",
+                note: "Predictive Analytics • Anesthesia AI • Perioperative Risk Management ",
+              },
               {
                 title:"Enhanced ICCMS Radiographic Staging of Dental Caries Using Localized Deep Learning on Periapical Images",
                 year: 2025,
@@ -1045,6 +1091,7 @@ const DiceMed = () => {
                           {p.title}
                         </h3>
 
+
                         {/* authors */}
                         {p.authors && (
                           <p className="mt-2 text-sm text-gray-700">
@@ -1097,9 +1144,13 @@ const DiceMed = () => {
                               PDF soon
                             </span>
                           )}
-
-                          <span className="text-gray-300">•</span>
-
+                          {p.status === "Published" && (<>
+                            <span className="text-gray-300">•</span>
+                              <button onClick={() => copyAPA(p)}
+                                  className="inline-flex items-center gap-1.5 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm font-medium text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 transition"
+                              >
+                              <i className="fas fa-copy"></i> APA </button></>
+                          )}
                           {p.doi ? (
                             <a
                               href={p.doi}
@@ -1125,6 +1176,7 @@ const DiceMed = () => {
                               DOI pending
                             </span>
                           )}
+                          
                         </div>
                       </div>
                           
@@ -1425,6 +1477,39 @@ const DiceMed = () => {
 
           {(() => {
             const news = [
+            {
+              id: "smartor-ai-ieee-2025-publication",
+              title: "SmartOR-AI Published on IEEE Xplore — Intelligent Anesthesia Decision Support System",
+              date: "2025-12-22",
+              location: "IEEE ICRM 2025",
+              summary: "Our paper 'SmartOR-AI: An Intelligent Predictive Analytics and Decision Support System for Anesthesia Equipped with Perioperative Risk Management' has been officially published on IEEE Xplore. The study introduces a modular AI-driven framework for perioperative risk prediction, real-time intraoperative monitoring, and postoperative complication forecasting, contributing toward the development of next-generation smart operating rooms.",
+              image: newsImg9, // or use a dedicated IEEE/SmartOR image if available
+              tags: [ "Publication",
+                    "IEEE",
+                    "SmartOR-AI",
+                    "Anesthesia AI",
+                    "Perioperative Risk"
+                ],
+              ctaLabel: "View on IEEE Xplore",
+              ctaHref: "https://ieeexplore.ieee.org/document/11349054",
+            },
+            {
+              id: "nnu-net-nasopalatine-2025",
+              title: "nnU-Net Nasopalatine Nerve Segmentation Paper Published in Springer Journal",
+              date: "2025-12-20",
+              location: "Journal of Maxillofacial and Oral Surgery",
+              summary:"Our research paper titled 'nnU-Net-Based Automated Nasopalatine Nerve Segmentation for Maxillofacial Surgery' has been officially published in the Journal of Maxillofacial and Oral Surgery (Springer). The study presents a deep learning framework for automated segmentation of the nasopalatine nerve using nnU-Net, demonstrating clinically relevant accuracy for surgical planning and maxillofacial interventions.",
+              image: newsImg10, // you can replace with a journal cover image if you prefer
+              tags: [
+                  "Publication",
+                  "Springer",
+                  "nnU-Net",
+                  "Medical Imaging",
+                  "Maxillofacial Surgery"
+                ],
+              ctaLabel: "View on Springer",
+              ctaHref: "https://link.springer.com/article/10.1007/s12663-025-02837-1",
+            },
             {
               id: "aihc-2025-best-paper",
               title: "DiceMed Wins Best Paper Award at AIHC 2025",
