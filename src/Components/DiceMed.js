@@ -25,6 +25,8 @@ import JoelImg from "../Assets/Joel.png";
 import NehaImg from "../Assets/Neha.webp";
 import NikhilImg from "../Assets/Nikhil.png";
 import sachinImg from "../Assets/Sachin.png";
+import newsImg9 from "../Assets/anesthetic.jpg"
+import newsImg10 from "../Assets/nnu.png"
 import { SiGooglescholar } from "react-icons/si";
 import miccai_first from "../Assets/miccai_first.png";
 import miccai_third from "../Assets/miccai_third.png";
@@ -1482,11 +1484,10 @@ const copyAPA = (paper) => {
               date: "2025-12-22",
               location: "IEEE ICRM 2025",
               summary: "Our paper 'SmartOR-AI: An Intelligent Predictive Analytics and Decision Support System for Anesthesia Equipped with Perioperative Risk Management' has been officially published on IEEE Xplore. The study introduces a modular AI-driven framework for perioperative risk prediction, real-time intraoperative monitoring, and postoperative complication forecasting, contributing toward the development of next-generation smart operating rooms.",
-              image: newsImg8, // or use a dedicated IEEE/SmartOR image if available
+              image: newsImg9, // or use a dedicated IEEE/SmartOR image if available
               tags: [ "Publication",
                     "IEEE",
                     "SmartOR-AI",
-                    "Predictive Analytics",
                     "Anesthesia AI",
                     "Perioperative Risk"
                 ],
@@ -1499,7 +1500,7 @@ const copyAPA = (paper) => {
               date: "2025-12-20",
               location: "Journal of Maxillofacial and Oral Surgery",
               summary:"Our research paper titled 'nnU-Net-Based Automated Nasopalatine Nerve Segmentation for Maxillofacial Surgery' has been officially published in the Journal of Maxillofacial and Oral Surgery (Springer). The study presents a deep learning framework for automated segmentation of the nasopalatine nerve using nnU-Net, demonstrating clinically relevant accuracy for surgical planning and maxillofacial interventions.",
-              image: newsImg1, // you can replace with a journal cover image if you prefer
+              image: newsImg10, // you can replace with a journal cover image if you prefer
               tags: [
                   "Publication",
                   "Springer",
