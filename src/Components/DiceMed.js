@@ -1386,14 +1386,6 @@ const copyAPA = (paper) => {
                 tags: ["Leadership", "Strategy",],
               },
               {
-                name: "Gadha Lekshmi P",
-                role: "Computer Vision Expert",
-                image: GadhaImg,
-                linkedin:
-                  "https://www.linkedin.com/in/gadha-lekshmi-p-848741268/",
-                tags: ["Deep Learning", "Medical Imaging", "AI Diagnostics"],
-              },
-              {
                 name: "Neha Ann Binoy",
                 role: "Jr. Software Developer",
                 image: NehaImg,
